@@ -16,7 +16,7 @@ def backup():
             if response == '1':
 
                 subprocess.run(['clear'], shell=True)
-                subprocess.run(['Backup initialized, please wait...'], shell=True)
+                print('\t Backup initiated, please wait...')
 
                 subprocess.run(['cd /tmp/Backup/ && mysqldump --user=root --password=Admin1234! --lock-tables --all-databases > server_db_backup.sql'], shell=True)
                 subprocess.run(['cd /tmp/Backup/ && tar -zcvf "TemporarydbBackup.tar.gz" server_db_backup.sql'], shell=True)
@@ -36,6 +36,9 @@ def backup():
             elif response == '2':
                 break
 
+
+
+
 def transferBackup():
     while True:
         subprocess.run([''], shell=True)
@@ -49,6 +52,8 @@ def transferBackup():
             break
         
 
+
+
 def restoreBackup():
     while True:
         subprocess.run([''], shell=True)
@@ -60,6 +65,8 @@ def restoreBackup():
 
         elif response == '2':
             break
+
+
 
 
 def return_to_loop():
