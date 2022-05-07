@@ -17,7 +17,7 @@ def backup():
             if response == '1':
 
                 subprocess.run(['clear'], shell=True)
-                print('\t Backup initiated, please wait...')
+                print('\t Backup initiated, please wait, as this is running...\n\t')
 
                 # Start the backup process of the mariaDB database.
                 subprocess.run(['cd /tmp/Backup/ && mysqldump --user=root --password=Admin1234! --lock-tables --all-databases > server_db_backup.sql'], shell=True)
@@ -26,7 +26,7 @@ def backup():
 
                 print('\n\t Backup has been completed, would you like to return to the main menu?\n')
                 print('\t 1: Yes')
-                print('\t 2: No')
+                print('\t 2: No\n')
 
                 response = str(input('\t Please input your selection: '))
 
@@ -67,22 +67,3 @@ def restoreBackup():
 
         elif response == '2':
             break
-
-
-
-
-def return_to_loop():
-	while True:
-					
-		print('\n\n ----------------------------------------------------------------------------\n')
-		print('\t\t\t\t Orbb')
-		print('\n\n\t Would you like to return to the main menu?\n\t')
-		print('\t 1. Yes')
-		print('\t 2. No')
-		
-		response = str(input('\n\t Response: '))
-		if response == '1':
-			break
-		elif response == '2':
-			subprocess.run(['clear'], shell=True)
-			sys.exit() 				# This causes the program to terminate gracefully.
