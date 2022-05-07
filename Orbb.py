@@ -18,7 +18,7 @@ try:
                 elif response == '2':
                         functions.transferBackup()
                 elif response == '3':
-                        functions.setupBackup()
+                        functions.restoreBackup()
                 elif response == '4':
                         sys.exit()
 
