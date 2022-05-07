@@ -1,0 +1,27 @@
+import sys, subprocess, functions
+
+try: 
+        while True:
+
+                subprocess.run(['clear'], shell=True)
+                print('\t Welcome to Orbb! What would you like to do? \n')
+                print('\t 1: Backup')
+                print('\t 2: Transfer Backup')
+                print('\t 3: Setup Backup')
+                print('\t 4: Exit \n')
+
+                response = str(input('\t Please input your selection as a number: '))
+                subprocess.run(['clear'], shell=True)
+                if response == '1':
+                        functions.backup()
+                        functions.return_to_loop()
+                elif response == '2':
+                        functions.transferBackup()
+                elif response == '3':
+                        functions.setupBackup()
+                elif response == '4':
+                        sys.exit()
+
+except KeyboardInterrupt:
+        subprocess.run(['clear'], shell=True)
+        print('User has purposefully interrupted the execution of the program.')
