@@ -14,7 +14,7 @@ try:
                 subprocess.run(['clear'], shell=True)
                 if response == '1':
                         functions.backup()
-                        functions.return_to_loop()
+                        #functions.return_to_loop()
                 elif response == '2':
                         functions.transferBackup()
                 elif response == '3':
