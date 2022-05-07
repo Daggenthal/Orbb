@@ -8,7 +8,7 @@ def backup():
 
 			subprocess.run(['mkdir /tmp/Backup/ && mkdir /tmp/Backup/etc/ && mkdir /tmp/Backup/usr'], shell=True)
 
-			print('\n\t NGINX settings, the mariaDB database, letsencrypt SSL certs, and the postfix configs will be backed up.\n')
+			print('\n\t NGINX settings, the mariaDB database, letsencrypt SSL certs, \n\t and the postfix configs will be backed up.\n')
 			print('\t Is this something you wanted to do?\n')
 			print('\t 1: Yes')
 			print('\t 2: No\n')
@@ -65,7 +65,7 @@ def transferBackup():
 	while True:
 		
 		subprocess.run(['clear'], shell=True)
-		print('\n\t This will RSYNC the Backup to the new server. Make sure to enter the IP before you run this, otherwise it may not work.\n')
+		print('\n\t This will RSYNC the Backup to the new server. Make sure to edit the IP \n\t in the script before you run this, otherwise it may not work.\n')
 		print('\t Is this something you wanted to do?\n')
 		print('\t 1: Yes')
 		print('\t 2: No\n')
@@ -80,7 +80,7 @@ def transferBackup():
 			subprocess.run(['clear'], shell=True)
 			print('\t Attempting to rsync the file, please wait...\n\t')
 
-			subprocess.run(['cd /tmp/ && rsync ServerBackup.tar.gz USER@IP:/tmp/'], shell=True)
+			subprocess.run(['cd /tmp/ && sudo rsync ServerBackup.tar.gz USER@IP:/tmp/'], shell=True)
 
 			print('\t Rsync was successful! Would you like to return to the main menu?\n')
 			print('\t 1: Yes')
@@ -99,7 +99,7 @@ def transferBackup():
 		
 
 
-		
+
 def serverSetup():
 	while True:
 		
@@ -148,8 +148,8 @@ def restoreBackup():
 	while True:
 		
 		subprocess.run(['clear'], shell=True)
-		print('\n\t Please make sure you have the pre-requisites installed! In this case, you need NGINX, mariaDB, and postfix.\n')
-		print('\n\t Please make sure that mariDB is properly setup with the corresponding user that you will use.\n')
+		print('\n\t Please make sure you have the pre-requisites installed! \n\t In this case, you need NGINX, mariaDB, and postfix.\n')
+		print('\n\t Please make sure that mariDB is properly setup\n\t with the corresponding user that you will use.\n')
 		print('\n\t Do you want to proceed with this?\n')
 		print('\t 1: Yes')
 		print('\t 2: No\n')
@@ -182,14 +182,14 @@ def restoreBackup():
 			# Here we're going to move the files to the proper directory that they came from.
 			# These 3 lines move our /etc/ files back to their origin.
 
-			subprocess.run(['cd /tmp/Backup/etc && sudo mv my.cnf /etc/'], shell=True)
-			subprocess.run(['cd /tmp/Backup/etc && sudo mv nginx/ /etc/'], shell=True)
-			subprocess.run(['cd /tmp/Backup/etc && sudo mv postfix /etc/'], shell=True)
+			subprocess.run(['cd /tmp/tmp/Backup/etc && sudo mv my.cnf /etc/'], shell=True)
+			subprocess.run(['cd /tmp/tmp/Backup/etc && sudo mv nginx/ /etc/'], shell=True)
+			subprocess.run(['cd /tmp/tmp/Backup/etc && sudo mv postfix /etc/'], shell=True)
 			print('\t /etc/ folders have successfully been restored. Attempting website restore...\n\t')
 
 			# Now we're going to move the website and mail certs back to their origin.
 
-			subprocess.run(['cd /tmp/Backup/usr && sudo mv nginx/ /usr/share/nginx'], shell=True)
+			subprocess.run(['cd /tmp/tmp/Backup/usr && sudo mv nginx/ /usr/share/nginx'], shell=True)
 			print('\t Website has successfully been restored! Attempting API key restore...\n\t')
 
 			# Now we're going to setup postfix so we can use the same API keys
@@ -199,7 +199,7 @@ def restoreBackup():
 
 			# Now we're going to restore the letsencrypt SSL certificates for the website.
 			
-			subprocess.run(['cd /tmp/Backup/etc && sudo mv letsencrypt/ /etc/'], shell=True)
+			subprocess.run(['cd /tmp/tmp/Backup/etc && sudo mv letsencrypt/ /etc/'], shell=True)
 			print('\t SSL certs have successfully been restored!\n')
 
 			# Now we'll start the services again, and enable them to persist upon reboot.
