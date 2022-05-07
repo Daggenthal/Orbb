@@ -17,7 +17,7 @@ def backup():
             if response == '1':
 
                 subprocess.run(['clear'], shell=True)
-                print('\t Backup initiated, please wait, as this is running...\n\t')
+                print('\t Backup initiated, please wait, as this may take some time depending on your CPU speed...\n\t')
 
                 # Start the backup process of the mariaDB database.
                 subprocess.run(['cd /tmp/Backup/ && mysqldump --user=root --password=Admin1234! --lock-tables --all-databases > server_db_backup.sql'], shell=True)
@@ -33,7 +33,7 @@ def backup():
                 subprocess.run(['sudo cp -r /usr/share/nginx/ /tmp/Backup/usr/'], shell=True)
 
                 # Compresses the /tmp/Backup/ folder for RSYNC later on.
-                subprocess.run(['cd /tmp/ && tar -zcvf "ServerBackup.tar.gz" /tmp/Backup/ '], shell=True)
+                subprocess.run(['cd /tmp/ && sudo tar -zcvf "ServerBackup.tar.gz" /tmp/Backup '], shell=True)
                 subprocess.run(['cd /tmp/ && sudo rm -rf Backup/'], shell=True)
 
                 print('\n\t Backup has been completed, would you like to return to the main menu?\n')
@@ -45,6 +45,7 @@ def backup():
                 if response == '1':
                     break
                 elif response == '2':
+                    subprocess.run(['clear'], shell=True)
                     sys.exit()
 
             elif response == '2':
