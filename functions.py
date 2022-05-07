@@ -25,8 +25,8 @@ def backup():
                 # Starts the backup process of my.cnf, NGINX, and postfix for the mail system / SendGrid settings, then moves them in the tmp directory.
                 subprocess.run(['mkdir /tmp/Backup/etc/'], shell=True)
                 subprocess.run(['cp /etc/my.cnf /tmp/Backup/etc/'], shell=True)
-                subprocess.run(['cp -r /etc/nginx/ /tmp/Backup/etc/'], shell=True)
-                subprocess.run(['cp -r /etc/postfix/ /tmp/Backup/etc/'], shell=True)
+                subprocess.run(['sudo cp -r /etc/nginx/ /tmp/Backup/etc/'], shell=True)
+                subprocess.run(['sudo cp -r /etc/postfix/ /tmp/Backup/etc/'], shell=True)
 
                 print('\n\t Backup has been completed, would you like to return to the main menu?\n')
                 print('\t 1: Yes')
