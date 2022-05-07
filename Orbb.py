@@ -7,7 +7,7 @@ try:
                 print('\t Welcome to Orbb! What would you like to do? \n')
                 print('\t 1: Backup')
                 print('\t 2: Transfer Backup')
-                print('\t 3: Setup Backup')
+                print('\t 3: Restore Backup')
                 print('\t 4: Exit \n')
 
                 response = str(input('\t Please input your selection as a number: '))
