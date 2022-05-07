@@ -37,7 +37,7 @@ def backup():
                 if response == '1':
                     break
                 elif response == '2':
-                    sys.exit
+                    sys.exit()
 
             elif response == '2':
                 break
