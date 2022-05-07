@@ -7,9 +7,9 @@ def backup():
             subprocess.run(['mkdir /tmp/Backup/ && cd /tmp/Backup/'], shell=True)
 
             print('\n\t NGINX settings, the mariaDB, and the postfix configs will be backed up.\n')
-            print('\t Is this something you wanted to do?')
+            print('\t Is this something you wanted to do?\n')
             print('\t 1: Yes')
-            print('\t 2: No')
+            print('\t 2: No\n')
 
             response = str(input('\t Please input your selection: '))
 
