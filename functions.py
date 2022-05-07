@@ -14,17 +14,36 @@ def backup():
             response = str(input('\t Please input your selection: '))
 
             if response == '1':
-                subprocess.run(['mysqldump --user=USERNAME --password=PASSWORD --lock-tables --all-databases > server_db_backup.sql'], shell=True)
-                subprocess.run(['tar -zcvf "$(date '+%Y-%m-%d').tar.gz" server_db_backup.sql'], shell=True)
+                subprocess.run(['mysqldump --user=root --password=Admin1234! --lock-tables --all-databases > server_db_backup.sql'], shell=True)
+                subprocess.run(['tar -zcvf "TemporarydbBackup.tar.gz" server_db_backup.sql'], shell=True)
                 subprocess.run(['rm server_db_backup.sql'], shell=True)
             elif response == '2':
                 break
 
 def transferBackup():
+    while True:
+        subprocess.run([''], shell=True)
+        
+        response = str(input('\t Please input your selection: '))
+        
+        if response == '1':
+            subprocess.run([''], shell=True)
 
+        elif response == '2':
+            break
+        
 
 def restoreBackup():
+    while True:
+        subprocess.run([''], shell=True)
 
+        response = str(input('\t Please input your selection: '))
+
+        if response == '1':
+            subprocess.run([''], shell=True)
+
+        elif response == '2':
+            break
 
 
 def return_to_loop():
