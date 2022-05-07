@@ -21,8 +21,12 @@ def backup():
 
                 # Start the backup process of the mariaDB database.
                 subprocess.run(['cd /tmp/Backup/ && mysqldump --user=root --password=Admin1234! --lock-tables --all-databases > server_db_backup.sql'], shell=True)
-                subprocess.run(['cd /tmp/Backup/ && tar -zcvf "TemporarydbBackup.tar.gz" server_db_backup.sql'], shell=True)
-                subprocess.run(['cd /tmp/Backup/ && rm server_db_backup.sql'], shell=True)
+
+                # Starts the backup process of my.cnf, NGINX, and postfix for the mail system / SendGrid settings, then moves them in the tmp directory.
+                subprocess.run(['mkdir /tmp/Backup/etc/'], shell=True)
+                subprocess.run(['cp /etc/my.cnf /tmp/Backup/etc/'], shell=True)
+                subprocess.run(['cp -r /etc/nginx/ /tmp/Backup/etc/'], shell=True)
+                subprocess.run(['cp -r /etc/postfix/ /tmp/Backup/etc/'], shell=True)
 
                 print('\n\t Backup has been completed, would you like to return to the main menu?\n')
                 print('\t 1: Yes')
