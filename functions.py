@@ -148,7 +148,7 @@ def restoreBackup():
 	while True:
 		
 		subprocess.run(['clear'], shell=True)
-		print('\n\t Please make sure you have the pre-requisites installed! \n\t In this case, you need NGINX, mariaDB, and postfix.\n')
+		print('\n\t Please make sure you have the pre-requisites installed! \n\t In this case, you need NGINX, mariaDB, certbot, and postfix.\n')
 		print('\n\t Please make sure that mariDB is properly setup\n\t with the corresponding user that you will use.\n')
 		print('\n\t Do you want to proceed with this?\n')
 		print('\t 1: Yes')
