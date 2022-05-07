@@ -97,6 +97,9 @@ def transferBackup():
 		elif response == '2':
 			break
 		
+
+
+		
 def serverSetup():
 	while True:
 		
@@ -137,6 +140,8 @@ def serverSetup():
   
 		elif response == '2':
 			break
+
+
 
 
 def restoreBackup():
