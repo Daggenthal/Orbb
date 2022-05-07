@@ -24,7 +24,7 @@ def backup():
 
                 print('\n\t Backup has been completed, would you like to return to the main menu?\n')
                 print('\t 1: Yes')
-                print('2: No\n')
+                print('\t 2: No')
 
                 response = str(input('\t Please input your selection: '))
 
