@@ -66,7 +66,22 @@ def transferBackup():
         response = str(input('\t Please input your selection: '))
         
         if response == '1':
-            subprocess.run([''], shell=True)
+
+            # This clears the terminal, and attempts to RSYNC the previously .tar.gz file we created earlier, and attempts to send it to the new one.
+            # Please, if you use this, make sure to change out $yourUsername and $yourIP, otherwise it won't work at all.
+
+            subprocess.run(['clear'], shell=True)
+            print('\t Attempting to rsync the file, please wait...\n\t')
+
+            subprocess.run(['cd /tmp/ && rsync ServerBackup.tar.gz USER@IP:/Path/To/New/Folder'], shell=True)
+            print('\t Rsync was successful! Would you like to return to the main menu?\n')
+
+            response = str(input('\t Please input your selection: '))
+
+            if response == '1':
+                break
+            elif response == '2':
+                sys.exit()
 
         elif response == '2':
             break
@@ -76,12 +91,22 @@ def transferBackup():
 
 def restoreBackup():
     while True:
-        subprocess.run([''], shell=True)
+        
+        subprocess.run(['clear'], shell=True)
+        print('\n\t Please make sure you have the pre-requisites installed! In this case, you need NGINX, mariaDB, and postfix.\n\t')
+        print('\n\t Do you want to proceed with this?')
 
         response = str(input('\t Please input your selection: '))
 
         if response == '1':
-            subprocess.run([''], shell=True)
 
-        elif response == '2':
-            break
+
+
+        #response = str(input('\t Please input your selection: '))
+    
+
+        #if response == '1':
+        #    subprocess.run([''], shell=True)
+
+        #elif response == '2':
+        #    break
