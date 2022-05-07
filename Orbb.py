@@ -7,8 +7,9 @@ try:
                 print('\t Welcome to Orbb! What would you like to do? \n')
                 print('\t 1: Backup')
                 print('\t 2: Transfer Backup')
-                print('\t 3: Restore Backup')
-                print('\t 4: Exit \n')
+                print('\t 3: Server Setup')
+                print('\t 4: Restore Backup')
+                print('\t 5: Exit \n')
 
                 response = str(input('\t Please input your selection as a number: '))
                 subprocess.run(['clear'], shell=True)
@@ -17,8 +18,10 @@ try:
                 elif response == '2':
                         functions.transferBackup()
                 elif response == '3':
-                        functions.restoreBackup()
+                        functions.serverSetup()
                 elif response == '4':
+                        functions.restoreBackup()
+                elif response == '5':
                         sys.exit()
 
 except KeyboardInterrupt:
