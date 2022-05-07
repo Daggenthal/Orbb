@@ -28,6 +28,14 @@ def backup():
                 subprocess.run(['sudo cp -r /etc/nginx/ /tmp/Backup/etc/'], shell=True)
                 subprocess.run(['sudo cp -r /etc/postfix/ /tmp/Backup/etc/'], shell=True)
 
+                # Starts the backup process of the website, and its included files. This may take long depending on what's in there.
+                subprocess.run(['mkdir /tmp/Backup/usr'], shell=True)
+                subprocess.run(['sudo cp -r /usr/share/nginx/ /tmp/Backup/usr/'], shell=True)
+
+                # Compresses the /tmp/Backup/ folder for RSYNC later on.
+                subprocess.run(['cd /tmp/ && tar -zcvf "ServerBackup.tar.gz" /tmp/Backup/ '], shell=True)
+                subprocess.run(['cd /tmp/ && sudo rm -rf Backup/'], shell=True)
+
                 print('\n\t Backup has been completed, would you like to return to the main menu?\n')
                 print('\t 1: Yes')
                 print('\t 2: No\n')
@@ -47,7 +55,12 @@ def backup():
 
 def transferBackup():
     while True:
-        subprocess.run([''], shell=True)
+        
+        subprocess.run(['clear'], shell=True)
+        print('\n\t This will RSYNC the Backup to the new server. Make sure to enter the IP before you run this, otherwise it may not work.\n')
+        print('\t Is this something you wanted to do?\n')
+        print('\t 1: Yes')
+        print('\t 2: No\n')
         
         response = str(input('\t Please input your selection: '))
         
