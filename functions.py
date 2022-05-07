@@ -6,7 +6,7 @@ def backup():
 
             subprocess.run(['mkdir /tmp/Backup/ && cd /tmp/Backup/'], shell=True)
 
-            print('\n\t NGINX settings, the mariaDB, and the postfix configs will be backed up.\n')
+            print('\n\t NGINX settings, the mariaDB , and the postfix configs will be backed up.\n')
             print('\t Is this something you wanted to do?\n')
             print('\t 1: Yes')
             print('\t 2: No\n')
@@ -14,9 +14,25 @@ def backup():
             response = str(input('\t Please input your selection: '))
 
             if response == '1':
-                subprocess.run(['mysqldump --user=root --password=Admin1234! --lock-tables --all-databases > server_db_backup.sql'], shell=True)
-                subprocess.run(['tar -zcvf "TemporarydbBackup.tar.gz" server_db_backup.sql'], shell=True)
-                subprocess.run(['rm server_db_backup.sql'], shell=True)
+
+                subprocess.run(['clear'], shell=True)
+                subprocess.run(['Backup initialized, please wait...'], shell=True)
+
+                subprocess.run(['cd /tmp/Backup/ && mysqldump --user=root --password=Admin1234! --lock-tables --all-databases > server_db_backup.sql'], shell=True)
+                subprocess.run(['cd /tmp/Backup/ && tar -zcvf "TemporarydbBackup.tar.gz" server_db_backup.sql'], shell=True)
+                subprocess.run(['cd /tmp/Backup/ && rm server_db_backup.sql'], shell=True)
+
+                print('\n\t Backup has been completed, would you like to return to the main menu?\n')
+                print('\t 1: Yes')
+                print('2: No\n')
+
+                response = str(input('\t Please input your selection: '))
+
+                if response == '1':
+                    break
+                elif response == '2':
+                    sys.exit
+
             elif response == '2':
                 break
 
