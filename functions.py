@@ -4,7 +4,8 @@ import sys, subprocess
 def backup():
     while True:
 
-            subprocess.run(['mkdir /tmp/Backup/ && cd /tmp/Backup/'], shell=True)
+            # Create a temporary directory that will be used throughout the script.
+            subprocess.run(['mkdir /tmp/Backup/'], shell=True)
 
             print('\n\t NGINX settings, the mariaDB , and the postfix configs will be backed up.\n')
             print('\t Is this something you wanted to do?\n')
@@ -18,6 +19,7 @@ def backup():
                 subprocess.run(['clear'], shell=True)
                 print('\t Backup initiated, please wait...')
 
+                # Start the backup process of the mariaDB database.
                 subprocess.run(['cd /tmp/Backup/ && mysqldump --user=root --password=Admin1234! --lock-tables --all-databases > server_db_backup.sql'], shell=True)
                 subprocess.run(['cd /tmp/Backup/ && tar -zcvf "TemporarydbBackup.tar.gz" server_db_backup.sql'], shell=True)
                 subprocess.run(['cd /tmp/Backup/ && rm server_db_backup.sql'], shell=True)
