@@ -119,6 +119,8 @@ def serverSetup():
 					
 			if 'debian' in OS:
 				subprocess.run(['sudo apt install -y nginx mariadb certbot postfix python3-certbot-nginx'], shell=True)
+			elif 'ubuntu' in OS:
+				subprocess.run(['sudo apt install -y nginx mariadb certbot postfix python3-certbox-nginx'], shell=True)
 			elif 'fedora' in OS:
 				subprocess.run(['sudo dnf install -y epel-release && sudo dnf install -y nginx mariadb certbot postfix python3-certbot-nginx'], shell=True)
 			elif 'arch' in OS:
