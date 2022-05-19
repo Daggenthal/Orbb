@@ -2,6 +2,7 @@ import sys, time
 
 from subprocess import run, getoutput
 from string import input
+from sys import exit
 
 def backup():
 	while True:
@@ -56,7 +57,7 @@ def backup():
 					break
 				elif response == '2':
 					run(['clear'], shell=True)
-					sys.exit()
+					exit()
 
 			elif response == '2':
 				break
@@ -123,7 +124,7 @@ def transferBackup():
 				
 				elif response == '2':
 					run(['clear'], shell=True)
-					sys.exit()
+					exit()
 					
 			elif response == '2':
 				run(['clear'], shell=True)
@@ -176,7 +177,7 @@ def serverSetup():
 				break
 			elif response == '2':
 				run(['clear'], shell=True)
-				sys.exit()
+				exit()
   
 		elif response == '2':
 			break
@@ -269,7 +270,7 @@ def restoreBackup():
 				break
 			elif response == '2':
 				run(['clear'], shell=True)
-				sys.exit()
+				exit()
 
 
 		elif response == '2':
