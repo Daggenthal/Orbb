@@ -1,6 +1,7 @@
 import sys, functions
 
 from subprocess import run
+from string import input
 
 try: 
         while True:
@@ -14,7 +15,7 @@ try:
                 print('\t 4: Restore Backup')
                 print('\t 5: Exit \n')
 
-                response = str(input('\t Please input your selection as a number: '))
+                response = input('\t Please input your selection as a number: ')
 
                 run(['clear'], shell=True)
 
