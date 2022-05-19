@@ -1,7 +1,6 @@
-import sys, functions
+import functions
 
 from subprocess import run
-from string import input
 from sys import exit
 
 try: 
