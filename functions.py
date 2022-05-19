@@ -1,6 +1,7 @@
 import sys, time
 
 from subprocess import run, getoutput
+from string import input
 
 def backup():
 	while True:
@@ -14,7 +15,7 @@ def backup():
 			print('\t 1: Yes')
 			print('\t 2: No\n')
 
-			response = str(input('\t Please input your selection: '))
+			response = input('\t Please input your selection: ')
 
 			if response == '1':
 
@@ -49,7 +50,7 @@ def backup():
 				print('\t 1: Yes')
 				print('\t 2: No\n')
 
-				response = str(input('\t Please input your selection: '))
+				response = input('\t Please input your selection: ')
 
 				if response == '1':
 					break
@@ -73,7 +74,7 @@ def transferBackup():
 		print('\t 1: Yes')
 		print('\t 2: No\n')
 		
-		response = str(input('\t Please input your selection: '))
+		response = input('\t Please input your selection: ')
 		
 		if response == '1':
 
@@ -85,8 +86,8 @@ def transferBackup():
 			# Here we're storing the target userName, and ipAddress, for the server where our file will be rsync'd to.
 			# These will be called later on.
 
-			userName = str(input('\n\t Please input the target username: '))
-			ipAddress = str(input('\n\t Please input the target IP Address: '))
+			userName = input('\n\t Please input the target username: ')
+			ipAddress = input('\n\t Please input the target IP Address: ')
 
 			run(['clear'], shell=True)
 
@@ -98,7 +99,7 @@ def transferBackup():
 			print('\t 1: Yes')
 			print('\t 2: No\n')
 
-			response = str(input('\t Please input your selection: '))
+			response = input('\t Please input your selection: ')
 
 			if response == '1':
 
@@ -115,7 +116,7 @@ def transferBackup():
 				print('\t 1: Yes')
 				print('\t 2: No\n')
 
-				response = str(input('\t Please input your selection: '))
+				response = input('\t Please input your selection: ')
 
 				if response == '1':
 					break
@@ -145,7 +146,7 @@ def serverSetup():
 		print('\t 1: Yes')
 		print('\t 2: No\n')
 				
-		response = str(input('\t Please input your selection: '))
+		response = input('\t Please input your selection: ')
 
 		if response == '1':
 		
@@ -169,7 +170,7 @@ def serverSetup():
 			
 			print('\t The prerequisites have been installed! Would you like to return to the main menu?\n')
 
-			response = str(input('\t Please input your selection: '))
+			response = input('\t Please input your selection: ')
 
 			if response == '1':
 				break
@@ -194,7 +195,7 @@ def restoreBackup():
 		print('\t 1: Yes')
 		print('\t 2: No\n')
 
-		response = str(input('\t Please input your selection: '))
+		response = input('\t Please input your selection: ')
 
 		if response == '1':
 
@@ -262,7 +263,7 @@ def restoreBackup():
 			print('\t 1: Yes')
 			print('\t 2: No\n')
 
-			response = str(input('\t Please input your selection: '))
+			response = input('\t Please input your selection: ')
 
 			if response == '1':
 				break
