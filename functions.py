@@ -1,8 +1,7 @@
-import sys, time
-
 from subprocess import run, getoutput
-from string import input
 from sys import exit
+from time import sleep
+
 
 def backup():
 	while True:
@@ -129,7 +128,7 @@ def transferBackup():
 			elif response == '2':
 				run(['clear'], shell=True)
 				print('\n\t Returning to main menu...')
-				time.sleep(1.25)
+				sleep(1.25)
 				break
 			
 		elif response == '2':
