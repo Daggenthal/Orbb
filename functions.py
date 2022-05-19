@@ -1,4 +1,4 @@
-import sys, subprocess
+import sys, subprocess, time
 
 
 def backup():
@@ -64,7 +64,7 @@ def backup():
 def transferBackup():
 	while True:
 		
-		subprocess.run(['clear'], shell=True)
+		#subprocess.run(['clear'], shell=True)
 		print('\n\t This will RSYNC the Backup to the new server. Make sure to edit the IP \n\t in the script before you run this, otherwise it may not work.\n')
 		print('\t Is this something you wanted to do?\n')
 		print('\t 1: Yes')
@@ -78,22 +78,59 @@ def transferBackup():
 			# Please, if you use this, make sure to change out $yourUsername and $yourIP, otherwise it won't work at all.
 
 			subprocess.run(['clear'], shell=True)
-			print('\t Attempting to rsync the file, please wait...\n\t')
 
-			subprocess.run(['cd /tmp/ && sudo rsync ServerBackup.tar.gz USER@IP:/tmp/'], shell=True)
+			# Here we're storing the target userName, and ipAddress, for the server where our file will be rsync'd to.
+			# These will be called later on.
 
-			print('\t Rsync was successful! Would you like to return to the main menu?\n')
+			userName = str(input('\n\t Please input the target username: '))
+			ipAddress = str(input('\n\t Please input the target IP Address: '))
+
+			subprocess.run(['clear'], shell=True)
+
+			print('\n\t Are these correct?')
+			print('\n\t Username: ', userName)
+			print('\t IP Address: ', ipAddress, '\n')
+
+
 			print('\t 1: Yes')
 			print('\t 2: No\n')
 
 			response = str(input('\t Please input your selection: '))
 
 			if response == '1':
-				break
-			elif response == '2':
-				subprocess.run(['clear'], shell=True)
-				sys.exit()
 
+				subprocess.run(['clear'], shell=True)
+
+				print('\n\t Attempting to rsync the file, please wait...\n\t')
+
+
+				# Now we're going to take the input that we stored previously, and import them into the terminal command, so the user doesn't have to manually edit this source file.
+
+				subprocess.run(['cd /tmp/ && sudo rsync ServerBackup.tar.gz', userName + '@' + ipAddress + ':/tmp/'], shell=True)
+
+				print('\t Rsync was successful! Would you like to return to the main menu?\n')
+				print('\t 1: Yes')
+				print('\t 2: No\n')
+
+				response = str(input('\t Please input your selection: '))
+
+				if response == '1':
+					break
+				
+				elif response == '2':
+					subprocess.run(['clear'], shell=True)
+					sys.exit()
+					
+			elif response == '2':
+				
+				subprocess.run(['clear'], shell=True)
+
+				print('\n\t Returning to main menu...')
+
+				time.sleep(1.25)
+
+				break
+			
 		elif response == '2':
 			break
 		
