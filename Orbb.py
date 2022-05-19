@@ -2,6 +2,7 @@ import sys, functions
 
 from subprocess import run
 from string import input
+from sys import exit
 
 try: 
         while True:
@@ -28,7 +29,7 @@ try:
                 elif response == '4':
                         functions.restoreBackup()
                 elif response == '5':
-                        sys.exit()
+                        exit()
 
 except KeyboardInterrupt:
         
