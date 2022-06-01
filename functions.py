@@ -3,7 +3,7 @@ from sys import exit
 from time import sleep
 
 
-def backup():
+def Backup():
 	while True:
 
 			# Create a temporary directory that will be used throughout the script.
@@ -69,7 +69,7 @@ def transferBackup():
 		
 		run(['clear'], shell=True)
 
-		print('\n\t This will RSYNC the Backup to the new server. Make sure to edit the IP \n\t in the script before you run this, otherwise it may not work.\n')
+		print('\n\t This will RSYNC the Backup to the new server.\n')
 		print('\t Is this something you wanted to do?\n')
 		print('\t 1: Yes')
 		print('\t 2: No\n')
