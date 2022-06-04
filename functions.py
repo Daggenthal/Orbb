@@ -267,10 +267,6 @@ def restoreBackup():
 
 			print('\n\t Starting services, and enabling them for future reboots, please wait...\n')
 
-
-			# Having an error with nginx starting for mariaDB, adding a user on Ubuntu 22.04 seems to fix it
-			# run(['sudo useradd nginx'], shell=True, check=True)
-
 			run(['sudo systemctl start nginx && sudo systemctl enable nginx'], shell=True, check=True)
 			run(['sudo systemctl start postfix && sudo systemctl enable postfix'], shell=True, check=True)
 			run(['sudo systemctl start mariadb && sudo systemctl enable mariadb'], shell=True, check=True)
@@ -285,15 +281,19 @@ def restoreBackup():
 			response = input('\t Please input your selection: ')
 
 			if response == '1':
-				userName = input('\n\t Please enter the username: ')
-				passWord = input('\n\t Please enter the password: ')
+
+				userName = input('\n\t Please enter your mariaDB username: ')
 
 				print('\n\t Attempting mariaDB / mySQL Database restoration, please wait... ')
-				run(['sudo mysql --user ' + userName + ' --password ' + passWord + ' --force < /tmp/tmp/Backup/server_db_backup.sql'], shell=True, check=True)
+
+				run(['sudo mysql --user ' + userName + ' --force < /tmp/tmp/Backup/server_db_backup.sql'], shell=True, check=True)
+
 				print('\n\t Database restoration was successful! Completing restoration, please wait... ')
+
 				sleep(1.25)
 				
 			elif response == '2':
+
 				print('\n\t Would you like to go ahead and setup MariaDB?\n')
 				print('\t 1: Yes')
 				print('\t 2: No\n')
@@ -301,19 +301,24 @@ def restoreBackup():
 				response = input('\t Please input your selection: ')
 
 				if response == '1':
+
 					run(['sudo mysql_secure_installation'], shell=True, check=True)
 
-					userName = input('\n\t Please enter the username: ')
-					passWord = input('\n\t Please enter the password: ')
+					userName = input('\n\t Please enter your mariaDB username: ')
 
 					print('\n\t Attempting mariaDB / mySQL Database restoration, please wait... ')
-					run(['sudo mysql --user ' + userName + ' --password ' + passWord + ' --force < /tmp/tmp/Backup/server_db_backup.sql'], shell=True, check=True)
+
+					run(['sudo mysql --user ' + userName + ' --force < /tmp/tmp/Backup/server_db_backup.sql'], shell=True, check=True)
+
 					print('\n\t Database restoration was successful! Going back to main menu...')
+
 					sleep(1.25)
 
 				elif response == '2':
+
 					print('\n\t Please note, that you may need to manually\n\t setup the DB for it to properly function.')
 					print('\n\n\t Restoration complete! Going back to main menu...')
+
 					sleep(3)
 					break
 		elif response == '2':
