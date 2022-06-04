@@ -156,17 +156,17 @@ def serverSetup():
 			OS = getoutput(['cat /etc/os-release'])
 					
 			if 'debian' in OS:
-				run(['sudo apt install -y nginx mariadb-server certbot postfix python3-certbot-nginx'], shell=True, check=True)
+				run(['sudo apt install -y nginx mariadb-server certbot postfix php-cli python3-certbot-nginx'], shell=True, check=True)
 			elif 'ubuntu' in OS:
-				run(['sudo apt install -y nginx mariadb-server certbot postfix python3-certbox-nginx'], shell=True, check=True)
+				run(['sudo apt install -y nginx mariadb-server certbot postfix php-cli python3-certbox-nginx'], shell=True, check=True)
 			elif 'fedora' in OS:
-				run(['sudo dnf install -y epel-release && sudo dnf install -y nginx mariadb-server certbot postfix python3-certbot-nginx'], shell=True, check=True)
+				run(['sudo dnf install -y epel-release && sudo dnf install -y nginx mariadb-server certbot postfix php-cli python3-certbot-nginx'], shell=True, check=True)
 			elif 'arch' in OS:
-				run(['sudo pacman -S --noconfirm nginx mariadb-server certbot postfix python3-certbot-nginx'], shell=True, check=True)
+				run(['sudo pacman -S --noconfirm nginx mariadb-server certbot postfix php-cli python3-certbot-nginx'], shell=True, check=True)
 			elif 'opensuse' in OS:
-				run(['sudo zypper install -y nginx mariadb-server certbot postfix python3-certbot-nginx'], shell=True, check=True)
+				run(['sudo zypper install -y nginx mariadb-server certbot postfix php-cli python3-certbot-nginx'], shell=True, check=True)
 			elif 'freebsd' in OS:
-				run(['sudo pkg install -y nginx mariadb-server certbot postfix python3-certbot-nginx'], shell=True, check=True)
+				run(['sudo pkg install -y nginx mariadb-server certbot postfix php-cli python3-certbot-nginx'], shell=True, check=True)
 			
 			run(['clear'], shell=True)
 			print('\n\t The prerequisites have been installed! Would you like to return to the main menu?\n')
