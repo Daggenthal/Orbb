@@ -214,9 +214,9 @@ def restoreBackup():
 			print('\t Disabling services momentarily...\n\t')
 			sleep(1.25)
 
-			#run(['sudo systemctl stop nginx'], shell=True, check=True)
-			#run(['sudo systemctl stop postfix'], shell=True, check=True)
-			#run(['sudo systemctl stop mariadb'], shell=True, check=True)
+			run(['sudo systemctl stop nginx'], shell=True, check=True)
+			run(['sudo systemctl stop postfix'], shell=True, check=True)
+			run(['sudo systemctl stop mariadb'], shell=True, check=True)
 
 			print('\t Services have successfully been disabled. Attempting restoration, please wait...\n\t')
 			sleep(1.25)
@@ -269,11 +269,11 @@ def restoreBackup():
 
 
 			# Having an error with nginx starting for mariaDB, adding a user on Ubuntu 22.04 seems to fix it
-			run(['sudo useradd nginx'], shell=True, check=True)
+			# run(['sudo useradd nginx'], shell=True, check=True)
 
-			#run(['sudo systemctl start nginx && sudo systemctl enable nginx'], shell=True, check=True)
-			#run(['sudo systemctl start postfix && sudo systemctl enable postfix'], shell=True, check=True)
-			#run(['sudo systemctl start mariadb && sudo systemctl enable mariadb'], shell=True, check=True)
+			run(['sudo systemctl start nginx && sudo systemctl enable nginx'], shell=True, check=True)
+			run(['sudo systemctl start postfix && sudo systemctl enable postfix'], shell=True, check=True)
+			run(['sudo systemctl start mariadb && sudo systemctl enable mariadb'], shell=True, check=True)
 			
 			print('\t Services have successfully been enabled! Configuring the database...\n')
 
