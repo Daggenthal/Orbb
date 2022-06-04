@@ -168,7 +168,7 @@ def serverSetup():
 			elif 'freebsd' in OS:
 				run(['sudo pkg install -y nginx mariadb-server certbot postfix python3-certbot-nginx'], shell=True, check=True)
 			
-			print('\t The prerequisites have been installed! Would you like to return to the main menu?\n')
+			print('\n\t The prerequisites have been installed! Would you like to return to the main menu?\n')
 			print('\t 1: Yes')
 			print('\t 2: No\n')
 
@@ -225,7 +225,6 @@ def restoreBackup():
 			# Clears out the directories that we're going to use, so we can successsfully copy our folders and files into their destinations.
 			
 			run(['cd /etc/ && sudo mv nginx/ /tmp/'], shell=True, check=True)
-			run(['cd /etc/ && sudo mv my.cnf /tmp/'], shell=True, check=True)
 			run(['cd /etc/ && sudo mv postfix/ /tmp/'], shell=True, check=True)
 			run(['cd /etc/ && sudo mv letsencrypt/ /tmp/'], shell=True, check=True)
 
@@ -240,8 +239,9 @@ def restoreBackup():
 			print('\t The file has successfully been decompressed! Attempting restore...\n\t')
 
 			# Here we're going to move the files to the proper directory that they came from.
-			# These 3 lines move our /etc/ files back to their origin.
+			# These 4 lines move our /etc/ files back to their origin, with the first one moving my.cnf so we can properly complete the restore.
 
+			run(['cd /etc/ && sudo mv my.cnf /tmp/'], shell=True, check=True)
 			run(['cd /tmp/tmp/Backup/etc && sudo cp my.cnf /etc/'], shell=True, check=True)
 			run(['cd /tmp/tmp/Backup/etc && sudo cp -r nginx/ /etc/'], shell=True, check=True)
 			run(['cd /tmp/tmp/Backup/etc && sudo cp -r postfix/ /etc/'], shell=True, check=True)
