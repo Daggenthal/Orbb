@@ -169,6 +169,8 @@ def serverSetup():
 				run(['sudo pkg install -y nginx mariadb-server certbot postfix python3-certbot-nginx'], shell=True, check=True)
 			
 			print('\t The prerequisites have been installed! Would you like to return to the main menu?\n')
+			print('\t 1: Yes')
+			print('\t 2: No\n')
 
 			response = input('\t Please input your selection: ')
 
@@ -253,7 +255,7 @@ def restoreBackup():
 
 			# Now we'll start the services again, and enable them to persist upon reboot.
 
-			print('\t Have you already setup MariaDB?\n\t')
+			print('\t Have you already setup MariaDB?\n')
 			print('\t 1: Yes')
 			print('\t 2: No\n')
 
@@ -269,7 +271,7 @@ def restoreBackup():
 				sleep(1.25)
 				
 			elif response == '2':
-				print('\t Would you like to go ahead and setup MariaDB?\n\t')
+				print('\t Would you like to go ahead and setup MariaDB?\n')
 				print('\t 1: Yes')
 				print('\t 2: No\n')
 
@@ -290,13 +292,13 @@ def restoreBackup():
 					sleep(3)
 					break
 
-			print('\n\t Starting services, and enabling them for future reboots, please wait...\n\t')
+			print('\n\t Starting services, and enabling them for future reboots, please wait...\n')
 
 			run(['sudo systemctl start nginx && sudo systemctl enable nginx'], shell=True, check=True)
 			run(['sudo systemctl start postfix && sudo systemctl enable postfix'], shell=True, check=True)
 			run(['sudo systemctl start mariadb && sudo systemctl enable mariadb'], shell=True, check=True)
 			
-			print('\t Services have successfully been enabled! Would you like to return to the main menu?\n\t')
+			print('\t Services have successfully been enabled! Would you like to return to the main menu?\n')
 			print('\t 1: Yes')
 			print('\t 2: No\n')
 
