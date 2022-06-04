@@ -312,14 +312,14 @@ def restoreBackup():
 
 					print('\n\t Database restoration was successful! Going back to main menu...')
 
-					sleep(1.25)
-
+					sleep(4)
+					break
 				elif response == '2':
 
 					print('\n\t Please note, that you may need to manually\n\t setup the DB for it to properly function.')
 					print('\n\n\t Restoration complete! Going back to main menu...')
 
-					sleep(3)
+					sleep(4)
 					break
 		elif response == '2':
 			break
