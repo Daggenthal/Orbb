@@ -308,12 +308,12 @@ def restoreBackup():
 
 					print('\n\t Attempting mariaDB / mySQL Database restoration, please wait... ')
 					run(['sudo mysql --user ' + userName + ' --password ' + passWord + ' --force < /tmp/tmp/Backup/server_db_backup.sql'], shell=True, check=True)
-					print('\n\t Database restoration was successful! Completing restoration, please wait... ')
+					print('\n\t Database restoration was successful! Going back to main menu...')
 					sleep(1.25)
 
 				elif response == '2':
 					print('\n\t Please note, that you may need to manually\n\t setup the DB for it to properly function.')
-					print('\n\n\t Continuing restoration, please wait...')
+					print('\n\n\t Restoration complete! Going back to main menu...')
 					sleep(3)
 					break
 		elif response == '2':
