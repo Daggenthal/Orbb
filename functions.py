@@ -271,7 +271,7 @@ def restoreBackup():
 			run(['sudo systemctl start postfix && sudo systemctl enable postfix'], shell=True, check=True)
 			run(['sudo systemctl start mariadb && sudo systemctl enable mariadb'], shell=True, check=True)
 			
-			print('\t Services have successfully been enabled! Configuring the database...\n')
+			print('\n\t Services have successfully been enabled! Configuring the database...\n')
 
 
 			print('\n\t Have you already setup MariaDB?\n')
