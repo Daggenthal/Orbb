@@ -222,6 +222,19 @@ def restoreBackup():
 
 			print('\t Attempting to decompress the file, please wait...\n\t')
 
+			# Clears out the directories that we're going to use, so we can successsfully copy our folders and files into their destinations.
+			
+			run(['cd /etc/ && sudo mv nginx/ /tmp/'], shell=True, check=True)
+			run(['cd /etc/ && sudo mv my.cnf /tmp/'], shell=True, check=True)
+			run(['cd /etc/ && sudo mv postfix/ /tmp/'], shell=True, check=True)
+			run(['cd /etc/ && sudo mv letsencrypt/ /tmp/'], shell=True, check=True)
+
+			# /etc/ has fully been moved to the /tmp/ directory, now onto /usr/
+
+			run(['cd /usr/share/ && sudo mv nginx/ /tmp/'], shell=True, check=True)
+
+
+
 			run(['cd /tmp/ && sudo tar xvzf ServerBackup.tar.gz'], shell=True, check=True)
 
 			print('\t The file has successfully been decompressed! Attempting restore...\n\t')
@@ -229,15 +242,15 @@ def restoreBackup():
 			# Here we're going to move the files to the proper directory that they came from.
 			# These 3 lines move our /etc/ files back to their origin.
 
-			run(['cd /tmp/tmp/Backup/etc && sudo mv my.cnf /etc/'], shell=True, check=True)
-			run(['cd /tmp/tmp/Backup/etc && sudo mv nginx/ /etc/'], shell=True, check=True)
-			run(['cd /tmp/tmp/Backup/etc && sudo mv postfix /etc/'], shell=True, check=True)
+			run(['cd /tmp/tmp/Backup/etc && sudo cp my.cnf /etc/'], shell=True, check=True)
+			run(['cd /tmp/tmp/Backup/etc && sudo cp -r nginx/ /etc/'], shell=True, check=True)
+			run(['cd /tmp/tmp/Backup/etc && sudo cp -r postfix/ /etc/'], shell=True, check=True)
 
 			print('\t /etc/ folders have successfully been restored. Attempting website restore...\n\t')
 
 			# Now we're going to move the website and mail certs back to their origin.
 
-			run(['cd /tmp/tmp/Backup/usr && sudo mv nginx/ /usr/share/nginx'], shell=True, check=True)
+			run(['cd /tmp/tmp/Backup/usr && sudo cp -r nginx/ /usr/share/'], shell=True, check=True)
 
 			print('\t Website has successfully been restored! Attempting API key restore...\n\t')
 
@@ -249,7 +262,7 @@ def restoreBackup():
 
 			# Now we're going to restore the letsencrypt SSL certificates for the website.
 			
-			run(['cd /tmp/tmp/Backup/etc && sudo mv letsencrypt/ /etc/'], shell=True, check=True)
+			run(['cd /tmp/tmp/Backup/etc && sudo cp -r letsencrypt/ /etc/'], shell=True, check=True)
 
 			print('\t SSL certs have successfully been restored!\n')
 
