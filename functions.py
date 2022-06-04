@@ -265,6 +265,15 @@ def restoreBackup():
 
 			# Now we'll start the services again, and enable them to persist upon reboot.
 
+			print('\n\t Starting services, and enabling them for future reboots, please wait...\n')
+
+			run(['sudo systemctl start nginx && sudo systemctl enable nginx'], shell=True, check=True)
+			run(['sudo systemctl start postfix && sudo systemctl enable postfix'], shell=True, check=True)
+			run(['sudo systemctl start mariadb && sudo systemctl enable mariadb'], shell=True, check=True)
+			
+			print('\t Services have successfully been enabled! Configuring the database...\n')
+
+
 			print('\n\t Have you already setup MariaDB?\n')
 			print('\t 1: Yes')
 			print('\t 2: No\n')
@@ -303,25 +312,5 @@ def restoreBackup():
 					print('\n\n\t Continuing restoration, please wait...')
 					sleep(3)
 					break
-
-			print('\n\t Starting services, and enabling them for future reboots, please wait...\n')
-
-			run(['sudo systemctl start nginx && sudo systemctl enable nginx'], shell=True, check=True)
-			run(['sudo systemctl start postfix && sudo systemctl enable postfix'], shell=True, check=True)
-			run(['sudo systemctl start mariadb && sudo systemctl enable mariadb'], shell=True, check=True)
-			
-			print('\t Services have successfully been enabled! Would you like to return to the main menu?\n')
-			print('\t 1: Yes')
-			print('\t 2: No\n')
-
-			response = input('\t Please input your selection: ')
-
-			if response == '1':
-				break
-			elif response == '2':
-				run(['clear'], shell=True)
-				exit()
-
-
 		elif response == '2':
 			break
