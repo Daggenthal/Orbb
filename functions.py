@@ -224,7 +224,7 @@ def restoreBackup():
 			# Here we're beginning to decompress the file we created, and moved, earlier. This contains everything we need to properly setup the new server.
 
 			print('\t Attempting to decompress the file, please wait...\n\t')
-			sleep(2)
+			sleep(3)
 
 			run(['cd /tmp/ && sudo tar xvzf ServerBackup.tar.gz'], shell=True, check=True)
 			run(['clear'], shell=True, check=True)
