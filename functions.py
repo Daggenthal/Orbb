@@ -281,9 +281,11 @@ def restoreBackup():
 				sleep(1.25)
 				
 			elif response == '2':
-				print('\t Would you like to go ahead and setup MariaDB?\n')
+				print('\n\t Would you like to go ahead and setup MariaDB?\n')
 				print('\t 1: Yes')
 				print('\t 2: No\n')
+
+				response = input('\t Please input your selection: ')
 
 				if response == '1':
 					run(['sudo mysql_secure_installation'], shell=True, check=True)
