@@ -224,7 +224,7 @@ def restoreBackup():
 			# Here we're beginning to decompress the file we created, and moved, earlier. This contains everything we need to properly setup the new server.
 
 			print('\t Attempting to decompress the file, please wait...\n\t')
-			sleep(1.5)
+			sleep(2)
 
 			run(['cd /tmp/ && sudo tar xvzf ServerBackup.tar.gz'], shell=True, check=True)
 			run(['clear'], shell=True, check=True)
@@ -267,6 +267,10 @@ def restoreBackup():
 
 			print('\n\t Starting services, and enabling them for future reboots, please wait...\n')
 
+
+			# Having an error with nginx starting for mariaDB, adding a user on Ubuntu 22.04 seems to fix it
+			run(['sudo useradd nginx'], shell=True, check=True)
+			
 			run(['sudo systemctl start nginx && sudo systemctl enable nginx'], shell=True, check=True)
 			run(['sudo systemctl start postfix && sudo systemctl enable postfix'], shell=True, check=True)
 			run(['sudo systemctl start mariadb && sudo systemctl enable mariadb'], shell=True, check=True)
