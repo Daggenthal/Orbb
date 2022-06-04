@@ -168,6 +168,7 @@ def serverSetup():
 			elif 'freebsd' in OS:
 				run(['sudo pkg install -y nginx mariadb-server certbot postfix python3-certbot-nginx'], shell=True, check=True)
 			
+			run(['clear'], shell=True)
 			print('\n\t The prerequisites have been installed! Would you like to return to the main menu?\n')
 			print('\t 1: Yes')
 			print('\t 2: No\n')
@@ -211,47 +212,56 @@ def restoreBackup():
 			# Here we're going to disable the services while we attempt to restore them.
 
 			print('\t Disabling services momentarily...')
+			sleep(1.25)
 
 			run(['sudo systemctl stop nginx'], shell=True, check=True)
 			run(['sudo systemctl stop postfix'], shell=True, check=True)
 			run(['sudo systemctl stop mariadb'], shell=True, check=True)
 
 			print('\t Services have successfully been disabled. Attempting restoration, please wait...\n\t')
+			sleep(1.25)
 
 			# Here we're beginning to decompress the file we created, and moved, earlier. This contains everything we need to properly setup the new server.
 
 			print('\t Attempting to decompress the file, please wait...\n\t')
+			sleep(1.25)
 
 			run(['cd /tmp/ && sudo tar xvzf ServerBackup.tar.gz'], shell=True, check=True)
+			run(['clear'], shell=True, check=True)
 
 			print('\t The file has successfully been decompressed! Attempting restore...\n\t')
+			sleep(1.25)
 
 			# Here we're going to move the files to the proper directory that they came from.
-			# These 4 lines move our /etc/ files back to their origin, with the first one moving my.cnf so we can properly complete the restore.
 
 			run(['cd /tmp/tmp/Backup/etc && sudo cp my.cnf /etc/'], shell=True, check=True)
 			run(['cd /tmp/tmp/Backup/etc && sudo cp -r nginx/ /etc/'], shell=True, check=True)
 			run(['cd /tmp/tmp/Backup/etc && sudo cp -r postfix/ /etc/'], shell=True, check=True)
 
-			print('\t /etc/ folders have successfully been restored. Attempting website restore...\n\t')
+			print('\t /etc/ folders have successfully been restored! Attempting website restore...\n\t')
+			sleep(1.25)
 
 			# Now we're going to move the website and mail certs back to their origin.
 
+			run(['cd /usr/share/ && sudo mv nginx/ /tmp'], shell=True)
 			run(['cd /tmp/tmp/Backup/usr && sudo cp -r nginx/ /usr/share/'], shell=True, check=True)
 
 			print('\t Website has successfully been restored! Attempting API key restore...\n\t')
+			sleep(1.25)
 
 			# Now we're going to setup postfix so we can use the same API keys
 
 			run(['sudo postmap /etc/postfix/sasl_passwd'], shell=True, check=True)
 
-			print('\t API keys have been successfully restored. Attempting SSL certs restore...\n')
+			print('\t API keys have been successfully restored! Attempting SSL certs restore...\n')
+			sleep(1.25)
 
 			# Now we're going to restore the letsencrypt SSL certificates for the website.
 			
 			run(['cd /tmp/tmp/Backup/etc && sudo cp -r letsencrypt/ /etc/'], shell=True, check=True)
 
 			print('\t SSL certs have successfully been restored!\n')
+			sleep(1.25)
 
 			# Now we'll start the services again, and enable them to persist upon reboot.
 
