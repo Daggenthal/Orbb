@@ -211,7 +211,7 @@ def restoreBackup():
 			
 			# Here we're going to disable the services while we attempt to restore them.
 
-			print('\t Disabling services momentarily...')
+			print('\t Disabling services momentarily...\n\t')
 			sleep(1.25)
 
 			run(['sudo systemctl stop nginx'], shell=True, check=True)
@@ -224,7 +224,7 @@ def restoreBackup():
 			# Here we're beginning to decompress the file we created, and moved, earlier. This contains everything we need to properly setup the new server.
 
 			print('\t Attempting to decompress the file, please wait...\n\t')
-			sleep(1.25)
+			sleep(1.5)
 
 			run(['cd /tmp/ && sudo tar xvzf ServerBackup.tar.gz'], shell=True, check=True)
 			run(['clear'], shell=True, check=True)
@@ -260,12 +260,12 @@ def restoreBackup():
 			
 			run(['cd /tmp/tmp/Backup/etc && sudo cp -r letsencrypt/ /etc/'], shell=True, check=True)
 
-			print('\t SSL certs have successfully been restored!\n')
+			print('\t SSL certs have successfully been restored!\n\t')
 			sleep(1.25)
 
 			# Now we'll start the services again, and enable them to persist upon reboot.
 
-			print('\t Have you already setup MariaDB?\n')
+			print('\n\t Have you already setup MariaDB?\n')
 			print('\t 1: Yes')
 			print('\t 2: No\n')
 
