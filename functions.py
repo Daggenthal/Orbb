@@ -110,7 +110,7 @@ def transferBackup():
 
 				# Now we're going to take the input that we stored previously, and import them into the terminal command, so the user doesn't have to manually edit this source file.
 
-				run(['cd /tmp/ && sudo rsync -v ServerBackup.tar.gz', userName + '@' + ipAddress + ':/tmp/'], shell=True, check=True)
+				run(['cd /tmp/ && sudo rsync -v ServerBackup.tar.gz ' + userName + '@' + ipAddress + ':/tmp/'], shell=True, check=True)
 
 				print('\t Rsync was successful! Would you like to return to the main menu?\n')
 				print('\t 1: Yes')
