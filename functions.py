@@ -10,7 +10,7 @@ def Backup():
 
 			run(['mkdir /tmp/Backup/ && mkdir /tmp/Backup/etc/ && mkdir /tmp/Backup/usr'], shell=True, check=True)
 
-			print('\n\t NGINX settings, the mariaDB database, letsencrypt SSL certs, \n\t and the postfix configs will be backed up.\n')
+			print('\n\t NGINX settings, Apache, the mariaDB database, letsencrypt SSL certs, \n\t and the postfix configs will be backed up.\n')
 			print('\t Is this something you wanted to do?\n')
 			print('\t 1: Yes')
 			print('\t 2: No\n')
@@ -27,11 +27,12 @@ def Backup():
 
 				run(['cd /tmp/Backup/ && mysqldump --user=root --password=Admin1234! --lock-tables --all-databases > server_db_backup.sql'], shell=True, check=True)
 
-				# Starts the backup process of my.cnf, NGINX, and postfix for the mail system / SendGrid settings, then moves them in the tmp directory.
+				# Starts the backup process of my.cnf, NGINX, apache(HTTPD), and postfix for the mail system / SendGrid settings, then moves them in the tmp directory.
 
 				run(['cp /etc/my.cnf /tmp/Backup/etc/'], shell=True, check=True)
 				run(['sudo cp -r /etc/nginx/ /tmp/Backup/etc/'], shell=True, check=True)
 				run(['sudo cp -r /etc/postfix/ /tmp/Backup/etc/'], shell=True, check=True)
+				run(['sudo cp -r /etc/httpd/ /tmp/Backup/etc'], shell=True, check=True)
 
 				# Starts the backup process of the website, and its included files. This may take long depending on what's in there.
 
@@ -156,17 +157,17 @@ def serverSetup():
 			OS = getoutput(['cat /etc/os-release'])
 					
 			if 'debian' in OS:
-				run(['sudo apt install -y nginx mariadb-server certbot postfix php-cli python3-certbot-nginx'], shell=True, check=True)
+				run(['sudo apt install -y nginx mariadb-server certbot postfix php-cli python3-certbot-nginx httpd'], shell=True, check=True)
 			elif 'ubuntu' in OS:
-				run(['sudo apt install -y nginx mariadb-server certbot postfix php-cli python3-certbox-nginx'], shell=True, check=True)
+				run(['sudo apt install -y nginx mariadb-server certbot postfix php-cli python3-certbox-nginx httpd'], shell=True, check=True)
 			elif 'fedora' in OS:
-				run(['sudo dnf install -y epel-release && sudo dnf install -y nginx mariadb-server certbot postfix php-cli python3-certbot-nginx'], shell=True, check=True)
+				run(['sudo dnf install -y epel-release && sudo dnf install -y nginx mariadb-server certbot postfix php-cli python3-certbot-nginx httpd'], shell=True, check=True)
 			elif 'arch' in OS:
-				run(['sudo pacman -S --noconfirm nginx mariadb-server certbot postfix php-cli python3-certbot-nginx'], shell=True, check=True)
+				run(['sudo pacman -S --noconfirm nginx mariadb-server certbot postfix php-cli python3-certbot-nginx httpd'], shell=True, check=True)
 			elif 'opensuse' in OS:
-				run(['sudo zypper install -y nginx mariadb-server certbot postfix php-cli python3-certbot-nginx'], shell=True, check=True)
+				run(['sudo zypper install -y nginx mariadb-server certbot postfix php-cli python3-certbot-nginx httpd'], shell=True, check=True)
 			elif 'freebsd' in OS:
-				run(['sudo pkg install -y nginx mariadb-server certbot postfix php-cli python3-certbot-nginx'], shell=True, check=True)
+				run(['sudo pkg install -y nginx mariadb-server certbot postfix php-cli python3-certbot-nginx httpd'], shell=True, check=True)
 			
 			run(['clear'], shell=True)
 			print('\n\t The prerequisites have been installed! Would you like to return to the main menu?\n')
@@ -217,6 +218,7 @@ def restoreBackup():
 			run(['sudo systemctl stop nginx'], shell=True, check=True)
 			run(['sudo systemctl stop postfix'], shell=True, check=True)
 			run(['sudo systemctl stop mariadb'], shell=True, check=True)
+			run(['sudo systemctl stop httpd'], shell=True, check=True)
 
 			print('\t Services have successfully been disabled. Attempting restoration, please wait...\n\t')
 			sleep(1.25)
@@ -237,6 +239,7 @@ def restoreBackup():
 			run(['cd /tmp/tmp/Backup/etc && sudo cp my.cnf /etc/'], shell=True, check=True)
 			run(['cd /tmp/tmp/Backup/etc && sudo cp -r nginx/ /etc/'], shell=True, check=True)
 			run(['cd /tmp/tmp/Backup/etc && sudo cp -r postfix/ /etc/'], shell=True, check=True)
+			run(['cd /tmp/tmp/Backup/etc && sudo cp -r httpd/ /etc/'], shell=True, check=True)
 
 			print('\t /etc/ folders have successfully been restored! Attempting website restore...\n\t')
 			sleep(1.25)
@@ -270,6 +273,7 @@ def restoreBackup():
 			run(['sudo systemctl start nginx && sudo systemctl enable nginx'], shell=True, check=True)
 			run(['sudo systemctl start postfix && sudo systemctl enable postfix'], shell=True, check=True)
 			run(['sudo systemctl start mariadb && sudo systemctl enable mariadb'], shell=True, check=True)
+			run(['sudo systemctl start httpd && sudo systemctl enable httpd'], shell=True, check=True)
 			
 			print('\n\t Services have successfully been enabled! Configuring the database...\n')
 
