@@ -34,4 +34,4 @@ except KeyboardInterrupt:
         
         run(['clear'], shell=True)
 
-        print('User has purposefully interrupted the execution of the program.')
+        print('\tUser has purposefully interrupted the execution of the program.\n')
