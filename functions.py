@@ -28,12 +28,13 @@ def Backup():
 
 				run(['cd /tmp/Backup/ && mysqldump --user=root --password=Admin1234! --lock-tables --all-databases > server_db_backup.sql'], shell=True, check=True)
 
-				# Starts the backup process of my.cnf, NGINX, apache(HTTPD), and postfix for the mail system / SendGrid settings, then moves them in the tmp directory.
+				# Starts the backup process of my.cnf, NGINX, apache(HTTPD), memcached, and postfix for the mail system / SendGrid settings, then moves them in the tmp directory.
 
 				run(['cp /etc/my.cnf /tmp/Backup/etc/'], shell=True, check=True)
 				run(['sudo cp -r /etc/nginx/ /tmp/Backup/etc/'], shell=True, check=True)
 				run(['sudo cp -r /etc/postfix/ /tmp/Backup/etc/'], shell=True, check=True)
 				run(['sudo cp -r /etc/httpd/ /tmp/Backup/etc'], shell=True, check=True)
+				run(['sudo cp -r /etc/sysconfig/memcached/ /tmp/Backup/etc'], shell=True, check=True)
 
 				# Starts the backup process of the website, and its included files. This may take long depending on what's in there.
 
@@ -157,17 +158,17 @@ def serverSetup():
 			OS = getoutput(['cat /etc/os-release'])
 					
 			if 'debian' in OS:
-				run(['sudo apt install -y nginx mariadb-server certbot postfix php-cli python3-certbot-nginx httpd'], shell=True, check=True)
+				run(['sudo apt install -y nginx mariadb-server memcached certbot postfix php-cli python3-certbot-nginx httpd'], shell=True, check=True)
 			elif 'ubuntu' in OS:
-				run(['sudo apt install -y nginx mariadb-server certbot postfix php-cli python3-certbox-nginx httpd'], shell=True, check=True)
+				run(['sudo apt install -y nginx mariadb-server memcached certbot postfix php-cli python3-certbox-nginx httpd'], shell=True, check=True)
 			elif 'fedora' in OS:
-				run(['sudo dnf install -y epel-release && sudo dnf install -y nginx mariadb-server certbot postfix php-cli python3-certbot-nginx httpd'], shell=True, check=True)
+				run(['sudo dnf install -y epel-release && sudo dnf install -y nginx mariadb-server memcached certbot postfix php-cli python3-certbot-nginx httpd'], shell=True, check=True)
 			elif 'arch' in OS:
-				run(['sudo pacman -S --noconfirm nginx mariadb-server certbot postfix php-cli python3-certbot-nginx httpd'], shell=True, check=True)
+				run(['sudo pacman -S --noconfirm nginx mariadb-server memcached certbot postfix php-cli python3-certbot-nginx httpd'], shell=True, check=True)
 			elif 'opensuse' in OS:
-				run(['sudo zypper install -y nginx mariadb-server certbot postfix php-cli python3-certbot-nginx httpd'], shell=True, check=True)
+				run(['sudo zypper install -y nginx mariadb-server memcached certbot postfix php-cli python3-certbot-nginx httpd'], shell=True, check=True)
 			elif 'freebsd' in OS:
-				run(['sudo pkg install -y nginx mariadb-server certbot postfix php-cli python3-certbot-nginx httpd'], shell=True, check=True)
+				run(['sudo pkg install -y nginx mariadb-server memcached certbot postfix php-cli python3-certbot-nginx httpd'], shell=True, check=True)
 			
 			run(['clear'], shell=True)
 			print('\n\t The prerequisites have been installed! Would you like to return to the main menu?\n')
@@ -238,6 +239,7 @@ def restoreBackup():
 			run(['cd /tmp/tmp/Backup/etc && sudo cp -r nginx/ /etc/'], shell=True, check=True)
 			run(['cd /tmp/tmp/Backup/etc && sudo cp -r postfix/ /etc/'], shell=True, check=True)
 			run(['cd /tmp/tmp/Backup/etc && sudo cp -r httpd/ /etc/'], shell=True, check=True)
+			run(['cd /tmp/tmp/Backup/etc && sudo cp -r memcached/ /etc/sysconfig/'], shell=True, check=True)
 
 			print('\t /etc/ folders have successfully been restored! Attempting website restore...\n\t')
 			sleep(1.25)
