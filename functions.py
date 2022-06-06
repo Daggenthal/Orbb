@@ -217,6 +217,7 @@ def restoreBackup():
 			run(['sudo systemctl stop postfix'], shell=True, check=True)
 			run(['sudo systemctl stop mariadb'], shell=True, check=True)
 			run(['sudo systemctl stop httpd'], shell=True, check=True)
+			run(['sudo systemctl stop memcached.service'], shell=True, check=True)
 
 			print('\t Services have successfully been disabled. Attempting restoration, please wait...\n\t')
 			sleep(1.25)
@@ -273,6 +274,7 @@ def restoreBackup():
 			run(['sudo systemctl start postfix && sudo systemctl enable postfix'], shell=True, check=True)
 			run(['sudo systemctl start mariadb && sudo systemctl enable mariadb'], shell=True, check=True)
 			run(['sudo systemctl start httpd && sudo systemctl enable httpd'], shell=True, check=True)
+			run(['sudo systemctl start memcached.service && sudo systemctl enable memcached.service'], shell=True, check=True)
 			
 			print('\n\t Services have successfully been enabled! Configuring the database...\n')
 
