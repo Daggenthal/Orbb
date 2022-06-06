@@ -34,7 +34,6 @@ def Backup():
 				run(['sudo cp -r /etc/nginx/ /tmp/Backup/etc/'], shell=True, check=True)
 				run(['sudo cp -r /etc/postfix/ /tmp/Backup/etc/'], shell=True, check=True)
 				run(['sudo cp -r /etc/httpd/ /tmp/Backup/etc'], shell=True, check=True)
-				run(['sudo cp -r /etc/sysconfig/memcached/ /tmp/Backup/etc'], shell=True, check=True)
 
 				# Starts the backup process of the website, and its included files. This may take long depending on what's in there.
 
