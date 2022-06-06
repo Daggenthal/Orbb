@@ -1,8 +1,7 @@
-import time
-
 from subprocess import run, getoutput
 from sys import exit
 from time import sleep
+
 
 
 def Backup():
@@ -108,17 +107,11 @@ def transferBackup():
 
 				run(['clear'], shell=True)
 
-				runtimeLength = time.time()
-
 				print('\n\t Attempting to rsync the file, please wait...\n\t')
-				print('\n\t Please note that this may take some time depending\n\ton your upload speed...')
-				print('n\t Currently, it has been ', runtimeLength, ' seconds.')
 				
-
-
 				# Now we're going to take the input that we stored previously, and import them into the terminal command, so the user doesn't have to manually edit this source file.
 
-				run(['cd /tmp/ && sudo rsync -v ServerBackup.tar.gz ' + userName + '@' + ipAddress + ':/tmp/'], shell=True, check=True)
+				run(['cd /tmp/ && sudo rsync -av -P ServerBackup.tar.gz ' + userName + '@' + ipAddress + ':/tmp/'], shell=True, check=True)
 
 				print('\t Rsync was successful! Would you like to return to the main menu?\n')
 				print('\t 1: Yes')
@@ -212,8 +205,6 @@ def restoreBackup():
 
 			# This CD's into /tmp/ and untar's our .tar.gz that we created earlier.
 			# Please, make sure that you're in the proper folder in order for this to work.
-
-
 
 			run(['clear'], shell=True)
 			
