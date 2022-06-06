@@ -28,7 +28,7 @@ def Backup():
 
 				run(['cd /tmp/Backup/ && mysqldump --user=root --password=Admin1234! --lock-tables --all-databases > server_db_backup.sql'], shell=True, check=True)
 
-				# Starts the backup process of my.cnf, NGINX, apache(HTTPD), memcached, and postfix for the mail system / SendGrid settings, then moves them in the tmp directory.
+				# Starts the backup process of my.cnf, NGINX, apache(HTTPD), and postfix for the mail system / SendGrid settings, then moves them in the tmp directory.
 
 				run(['cp /etc/my.cnf /tmp/Backup/etc/'], shell=True, check=True)
 				run(['sudo cp -r /etc/nginx/ /tmp/Backup/etc/'], shell=True, check=True)
