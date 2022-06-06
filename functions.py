@@ -1,3 +1,5 @@
+import time
+
 from subprocess import run, getoutput
 from sys import exit
 from time import sleep
@@ -106,7 +108,12 @@ def transferBackup():
 
 				run(['clear'], shell=True)
 
+				runtimeLength = time.time()
+
 				print('\n\t Attempting to rsync the file, please wait...\n\t')
+				print('\n\t Please note that this may take some time depending\n\ton your upload speed...')
+				print('n\t Currently, it has been ', runtimeLength, ' seconds.')
+				
 
 
 				# Now we're going to take the input that we stored previously, and import them into the terminal command, so the user doesn't have to manually edit this source file.
