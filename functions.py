@@ -25,7 +25,7 @@ def Backup():
 
 				run(['clear'], shell=True)
 
-				print('\t Grabbing pv to show pipe progress during compression and decompression...')
+				print('\t Grabbing pv to show pipe progress during compression and decompression...\n')
 				
 				if distro[0] in OS:
 					run([dpv], shell=True, check=True)
@@ -39,6 +39,10 @@ def Backup():
 					run([opv], shell=True, check=True)
 				elif distro[5] in OS:
 					run([bpv], shell=True, check=True)
+				
+				print('\t PV has been installed, continuing backup...')
+
+				sleep(3)
 
 				run(['clear'])
 
@@ -248,7 +252,7 @@ def restoreBackup():
 			sleep(2)
 
 			run(['cd /tmp/ && sudo pv ServerBackup.tar.gz | tar -xz'], shell=True, check=True)
-			sleep(2.5)
+			sleep(3)
 			run(['clear'], shell=True)
 
 			print('\t The file has successfully been decompressed! Attempting restore...\n\t')
