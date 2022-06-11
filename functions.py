@@ -1,6 +1,9 @@
-from subprocess import run, getoutput
+from subprocess import run
 from sys import exit
 from time import sleep
+from programs import OS, distro, debian, ubuntu, fedora, arch, opensuse, freebsd
+from programs import dpv, upv, fpv, apv, opv, bpv
+
 
 
 
@@ -21,6 +24,23 @@ def Backup():
 			if response == '1':
 
 				run(['clear'], shell=True)
+
+				print('\t Grabbing pv to show pipe progress during compression and decompression...')
+				
+				if distro[0] in OS:
+					run([dpv], shell=True, check=True)
+				elif distro[1] in OS:
+					run([upv], shell=True, check=True)
+				elif distro[2] in OS:
+					run([fpv], shell=True, check=True)
+				elif distro[3] in OS:
+					run([apv], shell=True, check=True)
+				elif distro[4] in OS:
+					run([opv], shell=True, check=True)
+				elif distro[5] in OS:
+					run([bpv], shell=True, check=True)
+
+				run(['clear'])
 
 				print('\t Backup initiated, please wait, as this may take some time depending on your CPU speed...\n\t')
 
@@ -45,7 +65,8 @@ def Backup():
 
 				# Compresses the /tmp/Backup/ folder for RSYNC later on.
 
-				run(['cd /tmp/ && sudo tar -zcvf "ServerBackup.tar.gz" /tmp/Backup '], shell=True, check=True)
+				#run(['cd /tmp/ && sudo tar -zcvf "ServerBackup.tar.gz" /tmp/Backup '], shell=True, check=True)
+				run(["cd /tmp/ && sudo tar cf - /tmp/Backup -P | pv -s $(du -sb /tmp/Backup | awk '{print $1}') | gzip > ServerBackup.tar.gz"], shell=True, check=True)
 				run(['cd /tmp/ && sudo rm -rf Backup/'], shell=True, check=True)
 
 				print('\n\t Backup has been completed, would you like to return to the main menu?\n')
@@ -149,25 +170,24 @@ def serverSetup():
 				
 		response = input('\t Please input your selection: ')
 
+
 		if response == '1':
 		
 			# Here we're installing the necessary programs that we'll be using for later on. These are *required* for the restoreBackup() function to properly work.
 			# What we're doing now is checking the users Linux distribution with 'cat /etc/os-release', and reading the output while scanning for key words, then executing what's needed.
 
-			OS = getoutput(['cat /etc/os-release'])
-					
-			if 'debian' in OS:
-				run(['sudo apt install -y nginx mariadb-server memcached certbot postfix php-cli python3-certbot-nginx httpd'], shell=True, check=True)
-			elif 'ubuntu' in OS:
-				run(['sudo apt install -y nginx mariadb-server memcached certbot postfix php-cli python3-certbox-nginx httpd'], shell=True, check=True)
-			elif 'fedora' in OS:
-				run(['sudo dnf install -y epel-release && sudo dnf install -y nginx mariadb-server memcached certbot postfix php-cli python3-certbot-nginx httpd'], shell=True, check=True)
-			elif 'arch' in OS:
-				run(['sudo pacman -S --noconfirm nginx mariadb-server memcached certbot postfix php-cli python3-certbot-nginx httpd'], shell=True, check=True)
-			elif 'opensuse' in OS:
-				run(['sudo zypper install -y nginx mariadb-server memcached certbot postfix php-cli python3-certbot-nginx httpd'], shell=True, check=True)
-			elif 'freebsd' in OS:
-				run(['sudo pkg install -y nginx mariadb-server memcached certbot postfix php-cli python3-certbot-nginx httpd'], shell=True, check=True)
+			if distro[0] in OS:
+				run([debian], shell=True, check=True)
+			elif distro[1] in OS:
+				run([ubuntu], shell=True, check=True)
+			elif distro[2] in OS:
+				run([fedora], shell=True, check=True)
+			elif distro[3] in OS:
+				run([arch], shell=True, check=True)
+			elif distro[4] in OS:
+				run([opensuse], shell=True, check=True)
+			elif distro[5] in OS:
+				run([freebsd], shell=True, check=True)
 			
 			run(['clear'], shell=True)
 			print('\n\t The prerequisites have been installed! Would you like to return to the main menu?\n')
@@ -225,10 +245,11 @@ def restoreBackup():
 			# Here we're beginning to decompress the file we created, and moved, earlier. This contains everything we need to properly setup the new server.
 
 			print('\t Attempting to decompress the file, please wait...\n\t')
-			sleep(3)
+			sleep(2)
 
-			run(['cd /tmp/ && sudo tar xvzf ServerBackup.tar.gz'], shell=True, check=True)
-			run(['clear'], shell=True, check=True)
+			run(['cd /tmp/ && sudo pv ServerBackup.tar.gz | tar -xz'], shell=True, check=True)
+			sleep(2.5)
+			run(['clear'], shell=True)
 
 			print('\t The file has successfully been decompressed! Attempting restore...\n\t')
 			sleep(1.25)
