@@ -239,8 +239,7 @@ def restoreBackup():
 			run(['cd /tmp/tmp/Backup/etc && sudo cp -r nginx/ /etc/'], shell=True, check=True)
 			run(['cd /tmp/tmp/Backup/etc && sudo cp -r postfix/ /etc/'], shell=True, check=True)
 			run(['cd /tmp/tmp/Backup/etc && sudo cp -r httpd/ /etc/'], shell=True, check=True)
-			#run(['cd /tmp/tmp/Backup/etc && sudo cp -r memcached/ /etc/sysconfig/'], shell=True, check=True)
-
+			
 			print('\t /etc/ folders have successfully been restored! Attempting website restore...\n\t')
 			sleep(1.25)
 
