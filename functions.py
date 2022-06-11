@@ -46,7 +46,7 @@ def Backup():
 
 				run(['clear'])
 
-				print('\n\t Backup initiated, please wait, as this may take some time depending on your CPU speed...\n')
+				print('\n\t Backup initiated, please wait...\n')
 
 				# Start the backup process of the mariaDB database.
 
