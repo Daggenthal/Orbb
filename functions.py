@@ -46,11 +46,13 @@ def Backup():
 
 				run(['clear'])
 
-				print('\t Backup initiated, please wait, as this may take some time depending on your CPU speed...\n\t')
+				print('\n\t Backup initiated, please wait, as this may take some time depending on your CPU speed...\n')
 
 				# Start the backup process of the mariaDB database.
 
 				run(['cd /tmp/Backup/ && mysqldump --user=root --password=Admin1234! --lock-tables --all-databases > server_db_backup.sql'], shell=True, check=True)
+
+				print('\t Database has been backed up! Backing up /etc/...\n')
 
 				# Starts the backup process of my.cnf, NGINX, apache(HTTPD), and postfix for the mail system / SendGrid settings, then moves them in the tmp directory.
 
@@ -59,18 +61,22 @@ def Backup():
 				run(['sudo cp -r /etc/postfix/ /tmp/Backup/etc/'], shell=True, check=True)
 				run(['sudo cp -r /etc/httpd/ /tmp/Backup/etc'], shell=True, check=True)
 
-				# Starts the backup process of the website, and its included files. This may take long depending on what's in there.
-
-				run(['sudo cp -r /usr/share/nginx/ /tmp/Backup/usr/'], shell=True, check=True)
-
 				# Starts the backup process of the letsencrypt certs for the website's SSL
 
 				run(['sudo cp -r /etc/letsencrypt/ /tmp/Backup/etc/'], shell=True, check=True)
 
+				print('\t /etc/ has been backed up! Backing up the website...\n')
+
+				# Starts the backup process of the website, and its included files. This may take long depending on what's in there.
+
+				run(['sudo cp -r /usr/share/nginx/ /tmp/Backup/usr/'], shell=True, check=True)
+
+				print('\t The website has been backed up! Compressing files...\n\t')
+
 				# Compresses the /tmp/Backup/ folder for RSYNC later on.
 
 				#run(['cd /tmp/ && sudo tar -zcvf "ServerBackup.tar.gz" /tmp/Backup '], shell=True, check=True)
-				run(["cd /tmp/ && sudo tar cf - /tmp/Backup -P | pv -s $(du -sb /tmp/Backup | awk '{print $1}') | gzip > ServerBackup.tar.gz"], shell=True, check=True)
+				run(["cd /tmp/ && sudo tar cf - /tmp/Backup -P | pv -s $(sudo du -sb /tmp/Backup | awk '{print $1}') | gzip > ServerBackup.tar.gz"], shell=True, check=True)
 				run(['cd /tmp/ && sudo rm -rf Backup/'], shell=True, check=True)
 
 				print('\n\t Backup has been completed, would you like to return to the main menu?\n')
