@@ -251,9 +251,9 @@ def restoreBackup():
 			elif distro[5] in OS:
 				run(['sudo service nginx stop'], shell=True, check=True)
 				run(['sudo service postfix stop'], shell=True, check=True)
-				run(['sudo service mariadb-server'], shell=True, check=True)
+				run(['sudo service mariadb-server stop'], shell=True, check=True)
 				run(['sudo service httpd stop'], shell=True, check=True)
-				run(['sudo service stop memcached'], shell=True, check=True)
+				run(['sudo service memcached stop'], shell=True, check=True)
 
 
 			print('\t Services have successfully been disabled. Attempting restoration, please wait...\n\t')
