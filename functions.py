@@ -248,12 +248,14 @@ def restoreBackup():
 				run(['sudo systemctl stop httpd'], shell=True, check=True)
 				run(['sudo systemctl stop memcached.service'], shell=True, check=True)
 
+			# Turns out that in FreeBSD, services aren't auto-started once installed. Here, we enable to start on boot, but for now they'll stay turned off.
+			# Later on we'll actually start these.
+
 			elif distro[5] in OS:
-				run(['sudo service nginx stop'], shell=True, check=True)
-				run(['sudo service postfix stop'], shell=True, check=True)
-				run(['sudo service mariadb-server stop'], shell=True, check=True)
-				run(['sudo service httpd stop'], shell=True, check=True)
-				run(['sudo service memcached stop'], shell=True, check=True)
+				run(['sudo sysrc nginx_enable=YES'], shell=True, check=True)
+				run(['sudo sysrc postfix_enable=YES'], shell=True, check=True)
+				run(['sudo sysrc mysql_enable=YES'], shell=True, check=True)
+				run(['sudo sysrc memcached_enable=YES'], shell=True, check=True)
 
 
 			print('\t Services have successfully been disabled. Attempting restoration, please wait...\n\t')
@@ -345,11 +347,10 @@ def restoreBackup():
 
 			elif distro[5] in OS:
 
-				run(['sudo service nginx start && sudo sysrc nginx_enable=YES'], shell=True, check=True)
-				run(['sudo service postfix start && sudo sysrc postfix_enable=YES'], shell=True, check=True)
-				run(['sudo service mariadb-server start && sudo sysrc mariadb_enable=YES'], shell=True, check=True)
-				run(['sudo service httpd start && sudo sysrc httpd_enable=YES'], shell=True, check=True)
-				run(['sudo service memcached start && sudo sysrc memcached_enable=YES'], shell=True, check=True)
+				run(['sudo service nginx start'], shell=True, check=True)
+				run(['sudo service postfix start'], shell=True, check=True)
+				run(['sudo service mysql-server start'], shell=True, check=True)
+				run(['sudo service memcached start'], shell=True, check=True)
 
 				# This line right here adds 'weekly_certbot_enable="YES"' to a file that we create, so certbot is checked weekly.
 				# We're also disabling sendmail, eventhough it's not present, due to enabling postfix prior in this script.
