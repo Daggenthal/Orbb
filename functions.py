@@ -287,6 +287,15 @@ def restoreBackup():
 			elif distro[5] in OS:
 
 				run(['cd /tmp/tmp/Backup/etc/ && sudo cp my.cnf /usr/local/etc/mysql/'], shell=True, check=True)
+
+				# You may ask yourself why we're moving the directories out. Errors are thrown that the directories already exist, so we're moving them!
+				# Sure, we can use -f to force the mv into the directory, but moving them to /tmp/ is cleaner, as later on we enable /tmp/ to be autocleared upon reboot.
+
+				run(['cd /usr/local/etc/ && sudo mv nginx/ /tmp/'], shell=True, check=True)
+				run(['cd /usr/local/etc/ && sudo mv postfix /tmp/'], shell=True, check=True)
+
+				# Now we'll finally move the directories that we want, back into their proper homes!
+
 				run(['cd /tmp/tmp/Backup/etc/ && sudo mv nginx/ /usr/local/etc/'], shell=True, check=True)
 				run(['cd /tmp/tmp/Backup/etc/ && sudo mv postfix/ /usr/local/etc/'], shell=True, check=True)
 			
