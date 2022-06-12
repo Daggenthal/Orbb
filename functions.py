@@ -313,7 +313,7 @@ def restoreBackup():
 			elif distro[5] in OS:
 
 				run(['sudo mkdir /tmp/holding/'], shell=True, check=True)
-				run(['cd /usr/local/www/ && sudo rm -rf nginx/'])
+				run(['cd /usr/local/www/ && sudo rm -rf nginx/'], shell=True, check=True)
 				run(['cd /tmp/tmp/Backup/usr/ && sudo mv nginx/ /usr/local/www/'], shell=True, check=True)
 
 			print('\t Website has successfully been restored! Attempting API key restore...\n\t')
