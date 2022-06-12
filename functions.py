@@ -356,6 +356,7 @@ def restoreBackup():
 
 				run(["""sudo touch /etc/periodic.conf && sudo echo 'weekly_certbot_enable="YES"' >> /etc/periodic.conf """], shell=True, check=True)
 				run(["""sudo echo 'sendmail_enable="NONE"' >> /etc/periodic.conf """], shell=True, check=True)
+				run(["""sudo echo 'clear_tmp_enable="YES" >> /etc/rc.conf"""], shell=True, check=True)
 
 			
 			print('\n\t Services have successfully been enabled! Configuring the database...\n')
