@@ -240,7 +240,7 @@ def restoreBackup():
 			sleep(1.25)
 
 
-			if distro[0,1,2,3,4] in OS:
+			if distro[0 or 1 or 2 or 3 or 4] in OS:
 
 				run(['sudo systemctl stop nginx'], shell=True, check=True)
 				run(['sudo systemctl stop postfix'], shell=True, check=True)
@@ -273,32 +273,60 @@ def restoreBackup():
 
 			# Here we're going to move the files to the proper directory that they came from.
 
-			run(['cd /tmp/tmp/Backup/etc && sudo cp my.cnf /etc/'], shell=True, check=True)
-			run(['cd /tmp/tmp/Backup/etc && sudo cp -r nginx/ /etc/'], shell=True, check=True)
-			run(['cd /tmp/tmp/Backup/etc && sudo cp -r postfix/ /etc/'], shell=True, check=True)
-			run(['cd /tmp/tmp/Backup/etc && sudo cp -r httpd/ /etc/'], shell=True, check=True)
+			if distro[0 or 1 or 2 or 3 or 4] in OS:
+
+				run(['cd /tmp/tmp/Backup/etc && sudo cp my.cnf /etc/'], shell=True, check=True)
+				run(['cd /tmp/tmp/Backup/etc && sudo cp -r nginx/ /etc/'], shell=True, check=True)
+				run(['cd /tmp/tmp/Backup/etc && sudo cp -r postfix/ /etc/'], shell=True, check=True)
+				run(['cd /tmp/tmp/Backup/etc && sudo cp -r httpd/ /etc/'], shell=True, check=True)
+
+			elif distro[5] in OS:
+
+				run(['cd /tmp/tmp/Backup/etc/ && sudo cp my.cnf /usr/local/etc/mysql/'], shell=True, check=True)
+				run(['cd /tmp/tmp/Backup/etc && sudo cp -r nginx/ /usr/local/etc/nginx/'], shell=True, check=True)
+				run(['cd /tmp/tmp/Backup/etc && sudo cp -r postfix/ /usr/local/etc/postfix/'], shell=True, check=True)
 			
 			print('\t /etc/ folders have successfully been restored! Attempting website restore...\n\t')
 			sleep(1.25)
 
 			# Now we're going to move the website and mail certs back to their origin.
+			# We move the folder that's created by nginx, to the /tmp/ directory, so we can install our own copy.
 
-			run(['cd /usr/share/ && sudo mv nginx/ /tmp'], shell=True)
-			run(['cd /tmp/tmp/Backup/usr && sudo cp -r nginx/ /usr/share/'], shell=True, check=True)
+			if distro[0 or 1 or 2 or 3 or 4] in OS:
+
+				run(['cd /usr/share/ && sudo mv nginx/ /tmp/'], shell=True)
+				run(['cd /tmp/tmp/Backup/usr && sudo cp -r nginx/ /usr/share/'], shell=True, check=True)
+
+			elif distro[5] in OS:
+
+				run(['cd /usr/local/www/ && sudo mv nginx/ /tmp/'], shell=True, check=True)
+				run(['cd /tmp/tmp/Backup/usr/ && sudo cp -r nginx/ /usr/local/www/'], shell=True, check=True)
 
 			print('\t Website has successfully been restored! Attempting API key restore...\n\t')
 			sleep(1.25)
 
 			# Now we're going to setup postfix so we can use the same API keys
 
-			run(['sudo postmap /etc/postfix/sasl_passwd'], shell=True, check=True)
+			if distro[0 or 1 or 2 or 3 or 4] in OS:
+
+				run(['sudo postmap /etc/postfix/sasl_passwd'], shell=True, check=True)
+
+			elif distro[5] in OS:
+
+				run(['sudo postmap /usr/local/etc/postfix/sasl_passwd'], shell=True, check=True)
 
 			print('\t API keys have been successfully restored! Attempting SSL certs restore...\n')
 			sleep(1.25)
 
 			# Now we're going to restore the letsencrypt SSL certificates for the website.
 			
-			run(['cd /tmp/tmp/Backup/etc && sudo cp -r letsencrypt/ /etc/'], shell=True, check=True)
+			if distro[0 or 1 or 2 or 3 or 4] in OS:
+
+				run(['cd /tmp/tmp/Backup/etc && sudo cp -r letsencrypt/ /etc/'], shell=True, check=True)
+
+			elif distro[5] in OS:
+
+				run(['cd /tmp/tmp/Backup/etc && sudo cp -r letsencrypt/ /usr/local/etc/'], shell=True, check=True)
 
 			print('\t SSL certs have successfully been restored!\n\t')
 			sleep(1.25)
@@ -316,11 +344,18 @@ def restoreBackup():
 				run(['sudo systemctl start memcached.service && sudo systemctl enable memcached.service'], shell=True, check=True)
 
 			elif distro[5] in OS:
-				run(['sudo service nginx start && sudo sysrc nginx_enable=yes'], shell=True, check=True)
-				run(['sudo service postfix start && sudo sysrc postfix_enable=yes'], shell=True, check=True)
-				run(['sudo service mariadb-server start && sudo sysrc mariadb_enable=yes'], shell=True, check=True)
-				run(['sudo service httpd start && sudo sysrc httpd_enable=yes'], shell=True, check=True)
-				run(['sudo service memcached start && sudo sysrc memcached_enable=yes'], shell=True, check=True)
+
+				run(['sudo service nginx start && sudo sysrc nginx_enable=YES'], shell=True, check=True)
+				run(['sudo service postfix start && sudo sysrc postfix_enable=YES'], shell=True, check=True)
+				run(['sudo service mariadb-server start && sudo sysrc mariadb_enable=YES'], shell=True, check=True)
+				run(['sudo service httpd start && sudo sysrc httpd_enable=YES'], shell=True, check=True)
+				run(['sudo service memcached start && sudo sysrc memcached_enable=YES'], shell=True, check=True)
+
+				# This line right here adds 'weekly_certbot_enable="YES"' to a file that we create, so certbot is checked weekly.
+				# We're also disabling sendmail, eventhough it's not present, due to enabling postfix prior in this script.
+
+				run(["""sudo touch /etc/periodic.conf && sudo echo 'weekly_certbot_enable="YES"' >> /etc/periodic.conf """], shell=True, check=True)
+				run(["""sudo echo 'sendmail_enable="NONE"' >> /etc/periodic.conf """], shell=True, check=True)
 
 			
 			print('\n\t Services have successfully been enabled! Configuring the database...\n')
