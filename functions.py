@@ -252,10 +252,12 @@ def restoreBackup():
 			# Later on we'll actually start these.
 
 			elif distro[5] in OS:
+
 				run(['sudo sysrc nginx_enable=YES'], shell=True, check=True)
 				run(['sudo sysrc postfix_enable=YES'], shell=True, check=True)
 				run(['sudo sysrc mysql_enable=YES'], shell=True, check=True)
 				run(['sudo sysrc memcached_enable=YES'], shell=True, check=True)
+				run(['clear'], shell=True, check=True)
 
 
 			print('\t Services have successfully been disabled. Attempting restoration, please wait...\n\t')
@@ -285,8 +287,8 @@ def restoreBackup():
 			elif distro[5] in OS:
 
 				run(['cd /tmp/tmp/Backup/etc/ && sudo cp my.cnf /usr/local/etc/mysql/'], shell=True, check=True)
-				run(['cd /tmp/tmp/Backup/etc && sudo cp -r nginx/ /usr/local/etc/nginx/'], shell=True, check=True)
-				run(['cd /tmp/tmp/Backup/etc && sudo cp -r postfix/ /usr/local/etc/postfix/'], shell=True, check=True)
+				run(['cd /tmp/tmp/Backup/etc/ && sudo mv nginx/ /usr/local/etc/'], shell=True, check=True)
+				run(['cd /tmp/tmp/Backup/etc/ && sudo mv postfix/ /usr/local/etc/'], shell=True, check=True)
 			
 			print('\t /etc/ folders have successfully been restored! Attempting website restore...\n\t')
 			sleep(1.25)
@@ -302,7 +304,7 @@ def restoreBackup():
 			elif distro[5] in OS:
 
 				run(['cd /usr/local/www/ && sudo mv nginx/ /tmp/'], shell=True, check=True)
-				run(['cd /tmp/tmp/Backup/usr/ && sudo cp -r nginx/ /usr/local/www/'], shell=True, check=True)
+				run(['cd /tmp/tmp/Backup/usr/ && sudo mv nginx/ /usr/local/www/'], shell=True, check=True)
 
 			print('\t Website has successfully been restored! Attempting API key restore...\n\t')
 			sleep(1.25)
