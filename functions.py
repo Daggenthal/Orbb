@@ -312,7 +312,7 @@ def restoreBackup():
 
 			elif distro[5] in OS:
 
-				run(['cd /usr/local/www/ && sudo mv nginx/ /tmp/'], shell=True, check=True)
+				run(['sudo mkdir /tmp/holding/ && cd /usr/local/www/ && sudo mv nginx/ /tmp/holding/'], shell=True, check=True)
 				run(['cd /tmp/tmp/Backup/usr/ && sudo mv nginx/ /usr/local/www/'], shell=True, check=True)
 
 			print('\t Website has successfully been restored! Attempting API key restore...\n\t')
@@ -339,7 +339,8 @@ def restoreBackup():
 
 			elif distro[5] in OS:
 
-				run(['cd /tmp/tmp/Backup/etc && sudo cp -r letsencrypt/ /usr/local/etc/'], shell=True, check=True)
+				run(['cd /usr/local/etc/ && sudo mv letsencrypt/ /tmp/holding/'], shell=True, check=True)
+				run(['cd /tmp/tmp/Backup/etc && sudo mv letsencrypt/ /usr/local/etc/'], shell=True, check=True)
 
 			print('\t SSL certs have successfully been restored!\n\t')
 			sleep(1.25)
