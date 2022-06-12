@@ -327,6 +327,12 @@ def restoreBackup():
 
 			elif distro[5] in OS:
 
+				# We need to create the group postdrop, and then give them postfix permissions.
+
+				run(['sudo pw groupadd postdrop && sudo postfix set-permissions'], shell=True, check=True)
+
+				# Now we can properly set the main.cf file for our usage.
+
 				run(['sudo postmap /usr/local/etc/postfix/sasl_passwd'], shell=True, check=True)
 
 			print('\t API keys have been successfully restored! Attempting SSL certs restore...\n')
