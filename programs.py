@@ -16,7 +16,7 @@ arch = 'sudo pacman -S --noconfirm nginx mariadb-server memcached certbot postfi
 
 opensuse = 'sudo zypper install -y nginx mariadb-server memcached certbot postfix pv php-cli python3-certbot-nginx httpd'
 
-freebsd = 'sudo pkg install -y nginx mariadb106-server-10.6.8 memcached postfix py38-certbot-nginx-1.22.0 apache24-2.4.53_1'
+freebsd = 'sudo pkg install nginx mariadb106-server-10.6.8 memcached postfix py38-certbot-nginx-1.22.0 apache24-2.4.54'
 
 #############################################################################################################################################################
 
