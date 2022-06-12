@@ -307,11 +307,21 @@ def restoreBackup():
 
 			print('\n\t Starting services, and enabling them for future reboots, please wait...\n')
 
-			run(['sudo systemctl start nginx && sudo systemctl enable nginx'], shell=True, check=True)
-			run(['sudo systemctl start postfix && sudo systemctl enable postfix'], shell=True, check=True)
-			run(['sudo systemctl start mariadb && sudo systemctl enable mariadb'], shell=True, check=True)
-			run(['sudo systemctl start httpd && sudo systemctl enable httpd'], shell=True, check=True)
-			run(['sudo systemctl start memcached.service && sudo systemctl enable memcached.service'], shell=True, check=True)
+			if distro[0,1,2,3,4] in OS:
+
+				run(['sudo systemctl start nginx && sudo systemctl enable nginx'], shell=True, check=True)
+				run(['sudo systemctl start postfix && sudo systemctl enable postfix'], shell=True, check=True)
+				run(['sudo systemctl start mariadb && sudo systemctl enable mariadb'], shell=True, check=True)
+				run(['sudo systemctl start httpd && sudo systemctl enable httpd'], shell=True, check=True)
+				run(['sudo systemctl start memcached.service && sudo systemctl enable memcached.service'], shell=True, check=True)
+
+			elif distro[5] in OS:
+				run(['sudo service nginx start && sudo sysrc nginx_enable=yes'], shell=True, check=True)
+				run(['sudo service postfix start && sudo sysrc postfix_enable=yes'], shell=True, check=True)
+				run(['sudo service mariadb-server start && sudo sysrc mariadb_enable=yes'], shell=True, check=True)
+				run(['sudo service httpd start && sudo sysrc httpd_enable=yes'], shell=True, check=True)
+				run(['sudo service memcached start && sudo sysrc memcached_enable=yes'], shell=True, check=True)
+
 			
 			print('\n\t Services have successfully been enabled! Configuring the database...\n')
 
