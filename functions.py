@@ -184,7 +184,7 @@ def serverSetup():
 			# Here we're installing the necessary programs that we'll be using for later on. These are *required* for the restoreBackup() function to properly work.
 			# What we're doing now is checking the users Linux distribution with 'cat /etc/os-release', and reading the output while scanning for key words, then executing what's needed.
 
-			if distro[0,1] in OS:
+			if distro[0 or 1] in OS:
 				run([debian], shell=True, check=True)
 			elif distro[2] in OS:
 				run([fedora], shell=True, check=True)
@@ -307,7 +307,7 @@ def restoreBackup():
 
 			print('\n\t Starting services, and enabling them for future reboots, please wait...\n')
 
-			if distro[0,1,2,3,4] in OS:
+			if distro[0 or 1 or 2 or 3 or 4] in OS:
 
 				run(['sudo systemctl start nginx && sudo systemctl enable nginx'], shell=True, check=True)
 				run(['sudo systemctl start postfix && sudo systemctl enable postfix'], shell=True, check=True)
