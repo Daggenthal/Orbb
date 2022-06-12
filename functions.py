@@ -1,8 +1,8 @@
 from subprocess import run
 from sys import exit
 from time import sleep
-from programs import OS, distro, debian, ubuntu, fedora, arch, opensuse, freebsd
-from programs import dpv, upv, fpv, apv, opv, bpv
+from programs import OS, distro, debian, fedora, arch, opensuse, freebsd
+from programs import dpv, fpv, apv, opv, bpv
 
 
 
@@ -27,10 +27,8 @@ def Backup():
 
 				print('\t Grabbing pv to show pipe progress during compression and decompression...\n')
 				
-				if distro[0] in OS:
+				if distro[0,1] in OS:
 					run([dpv], shell=True, check=True)
-				elif distro[1] in OS:
-					run([upv], shell=True, check=True)
 				elif distro[2] in OS:
 					run([fpv], shell=True, check=True)
 				elif distro[3] in OS:
@@ -186,10 +184,8 @@ def serverSetup():
 			# Here we're installing the necessary programs that we'll be using for later on. These are *required* for the restoreBackup() function to properly work.
 			# What we're doing now is checking the users Linux distribution with 'cat /etc/os-release', and reading the output while scanning for key words, then executing what's needed.
 
-			if distro[0] in OS:
+			if distro[0,1] in OS:
 				run([debian], shell=True, check=True)
-			elif distro[1] in OS:
-				run([ubuntu], shell=True, check=True)
 			elif distro[2] in OS:
 				run([fedora], shell=True, check=True)
 			elif distro[3] in OS:
@@ -243,11 +239,22 @@ def restoreBackup():
 			print('\t Disabling services momentarily...\n\t')
 			sleep(1.25)
 
-			run(['sudo systemctl stop nginx'], shell=True, check=True)
-			run(['sudo systemctl stop postfix'], shell=True, check=True)
-			run(['sudo systemctl stop mariadb'], shell=True, check=True)
-			run(['sudo systemctl stop httpd'], shell=True, check=True)
-			run(['sudo systemctl stop memcached.service'], shell=True, check=True)
+
+			if distro[0,1,2,3,4] in OS:
+
+				run(['sudo systemctl stop nginx'], shell=True, check=True)
+				run(['sudo systemctl stop postfix'], shell=True, check=True)
+				run(['sudo systemctl stop mariadb'], shell=True, check=True)
+				run(['sudo systemctl stop httpd'], shell=True, check=True)
+				run(['sudo systemctl stop memcached.service'], shell=True, check=True)
+
+			elif distro[5] in OS:
+				run(['sudo service nginx stop'], shell=True, check=True)
+				run(['sudo service postfix stop'], shell=True, check=True)
+				run(['sudo service mariadb-server'], shell=True, check=True)
+				run(['sudo service httpd stop'], shell=True, check=True)
+				run(['sudo service stop memcached'], shell=True, check=True)
+
 
 			print('\t Services have successfully been disabled. Attempting restoration, please wait...\n\t')
 			sleep(1.25)
