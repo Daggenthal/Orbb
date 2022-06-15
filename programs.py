@@ -8,9 +8,9 @@ distro = ['debian', 'ubuntu', 'fedora', 'rocky', 'arch', 'opensuse', 'freebsd']
 
 debian = 'sudo apt install -y nginx mariadb-server memcached certbot postfix pv php-cli php-fpm python3-certbot-nginx'
 
-fedora = 'sudo dnf install -y nginx mariadb-server memcached certbot postfix pv php-cli php-fpm python3-certbot-nginx'
+fedora = 'sudo dnf install -y nginx mariadb-server memcached certbot postfix pv php-cli php-mysqli php-xml php-fpm python3-certbot-nginx vsftpd'
 
-rocky = 'sudo dnf install -y epel-release && sudo dnf install -y nginx mariadb-server memcached certbot postfix pv php-cli php-mysqli php-xml php-fpm python3-certbot-nginx'
+rocky = 'sudo dnf install -y epel-release && sudo dnf install -y nginx mariadb-server memcached certbot postfix pv php-cli php-mysqli php-xml php-fpm python3-certbot-nginx vsftpd'
 
 arch = 'sudo pacman -S --noconfirm nginx mariadb-server memcached certbot postfix pv php-cli php-fpm python3-certbot-nginx'
 
