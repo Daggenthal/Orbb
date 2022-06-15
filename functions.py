@@ -59,8 +59,7 @@ def Backup():
 				run(['cp /etc/my.cnf /tmp/Backup/etc/'], shell=True, check=True)
 				run(['sudo cp -r /etc/nginx/ /tmp/Backup/etc/'], shell=True, check=True)
 				run(['sudo cp -r /etc/postfix/ /tmp/Backup/etc/'], shell=True, check=True)
-				run(['sudo cp -r /etc/httpd/ /tmp/Backup/etc'], shell=True, check=True)
-
+				
 				# Starts the backup process of the letsencrypt certs for the website's SSL
 
 				run(['sudo cp -r /etc/letsencrypt/ /tmp/Backup/etc/'], shell=True, check=True)
@@ -249,7 +248,6 @@ def restoreBackup():
 				run(['sudo systemctl stop nginx'], shell=True, check=True)
 				run(['sudo systemctl stop postfix'], shell=True, check=True)
 				run(['sudo systemctl stop mariadb'], shell=True, check=True)
-				run(['sudo systemctl stop httpd'], shell=True, check=True)
 				run(['sudo systemctl stop memcached.service'], shell=True, check=True)
 
 			# Turns out that in FreeBSD, services aren't auto-started once installed. Here, we enable to start on boot, but for now they'll stay turned off.
@@ -286,7 +284,6 @@ def restoreBackup():
 				run(['cd /tmp/tmp/Backup/etc && sudo cp my.cnf /etc/'], shell=True, check=True)
 				run(['cd /tmp/tmp/Backup/etc && sudo cp -r nginx/ /etc/'], shell=True, check=True)
 				run(['cd /tmp/tmp/Backup/etc && sudo cp -r postfix/ /etc/'], shell=True, check=True)
-				run(['cd /tmp/tmp/Backup/etc && sudo cp -r httpd/ /etc/'], shell=True, check=True)
 
 			elif distro[6] in OS:
 
@@ -365,7 +362,6 @@ def restoreBackup():
 				run(['sudo systemctl start nginx && sudo systemctl enable nginx'], shell=True, check=True)
 				run(['sudo systemctl start postfix && sudo systemctl enable postfix'], shell=True, check=True)
 				run(['sudo systemctl start mariadb && sudo systemctl enable mariadb'], shell=True, check=True)
-				run(['sudo systemctl start httpd && sudo systemctl enable httpd'], shell=True, check=True)
 				run(['sudo systemctl start memcached.service && sudo systemctl enable memcached.service'], shell=True, check=True)
 
 			elif distro[6] in OS:
@@ -398,7 +394,7 @@ def restoreBackup():
 
 				print('\n\t Attempting mariaDB / mySQL Database restoration, please wait... ')
 
-				run(['sudo mysql --user ' + userName + ' --force < /tmp/tmp/Backup/server_db_backup.sql'], shell=True, check=True)
+				run(['sudo mysql --user ' + userName + ' --password --force < /tmp/tmp/Backup/server_db_backup.sql'], shell=True, check=True)
 
 				print('\n\t Database restoration was successful! Completing restoration, please wait... ')
 
@@ -420,7 +416,7 @@ def restoreBackup():
 
 					print('\n\t Attempting mariaDB / mySQL Database restoration, please wait... ')
 
-					run(['sudo mysql --user ' + userName + ' --force < /tmp/tmp/Backup/server_db_backup.sql'], shell=True, check=True)
+					run(['sudo mysql --user ' + userName + ' --password --force < /tmp/tmp/Backup/server_db_backup.sql'], shell=True, check=True)
 
 					print('\n\t Database restoration was successful! Going back to main menu...')
 
