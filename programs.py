@@ -1,14 +1,16 @@
 from subprocess import getoutput
 
-OS = getoutput(['cat /etc/os-release'])
+OS = getoutput(["cat /etc/os-release || awk 'NR==1'"])
 
 #############################################################################################################################################################
 
-distro = ['debian', 'ubuntu', 'fedora', 'arch', 'opensuse', 'freebsd']
+distro = ['debian', 'ubuntu', 'fedora', 'rocky', 'arch', 'opensuse', 'freebsd']
 
 debian = 'sudo apt install -y nginx mariadb-server memcached certbot postfix pv php-cli python3-certbot-nginx httpd'
 
-fedora = 'sudo dnf install -y epel-release && sudo dnf install -y nginx mariadb-server memcached certbot postfix pv php-cli python3-certbot-nginx httpd'
+fedora = 'sudo dnf install -y nginx mariadb-server memcached certbot postfix pv php-cli python3-certbot-nginx httpd'
+
+rocky = 'sudo dnf install -y epel-release && sudo dnf install -y nginx mariadb-server memcached certbot postfix pv php-cli python3-certbot-nginx httpd'
 
 arch = 'sudo pacman -S --noconfirm nginx mariadb-server memcached certbot postfix pv php-cli python3-certbot-nginx httpd'
 
