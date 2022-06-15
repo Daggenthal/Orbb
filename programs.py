@@ -1,6 +1,6 @@
 from subprocess import getoutput
 
-OS = getoutput(["cat /etc/os-release || awk 'NR==1'"])
+OS = getoutput(["cat /etc/os-release | awk 'NR==1'"])
 
 #############################################################################################################################################################
 
