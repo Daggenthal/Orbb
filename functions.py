@@ -27,7 +27,7 @@ def Backup():
 
 				print('\t Grabbing pv to show pipe progress during compression and decompression...\n')
 				
-				if distro[0,1] in OS:
+				if distro[0 or 1] in OS:
 					run([dpv], shell=True, check=True)
 				elif distro[2] in OS:
 					run([fpv], shell=True, check=True)
