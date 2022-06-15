@@ -31,7 +31,7 @@ def Backup():
 					run([dpv], shell=True, check=True)
 				elif distro[2] in OS:
 					run([fpv], shell=True, check=True)
-				elif distrop[3] in OS:
+				elif distro[3] in OS:
 					run([fpv], shell=True, check=True)
 				elif distro[4] in OS:
 					run([apv], shell=True, check=True)
