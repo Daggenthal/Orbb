@@ -1,3 +1,5 @@
+import getpass
+
 from subprocess import run
 from sys import exit
 from time import sleep
@@ -46,11 +48,16 @@ def Backup():
 
 				run(['clear'])
 
-				print('\n\t Backup initiated, please wait...\n')
+				userName = input('\n\t Please input your MariaDB Username: ')
+				passWord = getpass.getpass('\n\t Please input your password: ')
+				
+				run(['clear'], shell=True, check=True)
 
 				# Start the backup process of the mariaDB database.
+				
+				print('\n\t Backup initiated, please wait...\n')
 
-				run(['cd /tmp/Backup/ && mysqldump --user=root --password=Admin1234! --lock-tables --all-databases > server_db_backup.sql'], shell=True, check=True)
+				run(['cd /tmp/Backup && mysqldump --user=' + userName + ' --password=' + passWord + ' --lock-tables --all-databases > server_db_backup.sql'], shell=True, check=True)
 
 				print('\t Database has been backed up! Backing up /etc/...\n')
 
@@ -223,7 +230,7 @@ def restoreBackup():
 		run(['clear'], shell=True)
 
 		print('\n\t Please make sure you have the pre-requisites installed! \n\t In this case, you need NGINX, mariaDB, certbot, and postfix.\n')
-		print('\n\t Please make sure that mariDB is properly setup\n\t with the corresponding user that you will use.\n')
+		print('\n\t Please make sure that mariaDB is properly setup\n\t with the corresponding user that you will use.\n')
 		print('\n\t Do you want to proceed with this?\n')
 		print('\t 1: Yes')
 		print('\t 2: No\n')
